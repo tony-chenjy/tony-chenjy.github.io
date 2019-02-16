@@ -7,12 +7,13 @@
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta property="og:type" content="website">
-<meta property="og:title" content="DevLog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:title" content="search">
+<meta property="og:url" content="http://yoursite.com/search/index.html">
 <meta property="og:site_name" content="DevLog">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-02-16T02:09:31.646Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="DevLog">
+<meta name="twitter:title" content="search">
     
     
         
@@ -32,7 +33,7 @@
         
     
     <!-- title -->
-    <title>DevLog</title>
+    <title>search</title>
     <!-- styles -->
     <link rel="stylesheet" href="/css/style.css">
     <!-- persian styles -->
@@ -80,45 +81,22 @@
 </header>
 
         
-        <section id="about">
+        <article class="post" itemscope="" itemtype="http://schema.org/BlogPosting">
   
-  
+
+  <div class="content" itemprop="articleBody">
+      
+        <section id="search">
+  <form>
+    <input type="text" class="search-input" id="search-input" placeholder="搜索...">
+  </form>
+  <div id="search-result"></div>
+  <p class="search-no-result">抱歉，没有符合您搜索条件的结果。请换其它关键词再试。</p>
 </section>
 
-<section id="writing">
-  <span class="h1"><a href="/archives">文章</a></span>
-  
-  <ul class="post-list">
-    
-    
       
-    
-    
-      <li class="post-item">
-        
-    <div class="meta">
-      
-        
-          <time datetime="2019-02-16T01:07:21.184Z" itemprop="datePublished">2019-02-16</time>
-        
-      
-    </div>
-
-
-        <span>
-    
-        <a class="" href="/2019/02/16/hello-world/">Hello World</a>
-    
-
-
-</span>
-      </li>
-    
-  </ul>
-  
-</section>
-
-
+  </div>
+</article>
 
         
         <footer id="footer">
@@ -154,6 +132,41 @@
 <script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
 <script src="/js/main.js"></script>
 <!-- search -->
+
+  <script src="/js/search.js"></script>
+  <script type="text/javascript">
+  $(function() {
+
+    var $inputArea = $("input#search-input");
+    var $resultArea = document.querySelector("div#search-result");
+
+    $inputArea.focus(function() {
+      var search_path = "search.xml";
+      if (search_path.length == 0) {
+        search_path = "search.xml";
+      }
+      var path = "/" + search_path;
+      searchFunc(path, 'search-input', 'search-result');
+    });
+
+    $inputArea.keydown(function(e) {
+      if (e.which == 13) {
+        e.preventDefault();
+      }
+    });
+
+    var observer = new MutationObserver(function(mutationsList, observer) {
+      if (mutationsList[0].addedNodes) {
+        $(".search-no-result").show(200);
+      } else {
+        $(".search-no-result").hide();
+      }
+    });
+
+    observer.observe($resultArea, { childList: true });
+
+  });
+  </script>
 
 <!-- Google Analytics -->
 
