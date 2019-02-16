@@ -4,6 +4,44 @@
   
     
     <entry>
+      <title>【git】创建pull request</title>
+      <link href="/2019/02/17/git-pull-request/"/>
+      <url>/2019/02/17/git-pull-request/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>前言：在使用 Hexo + github 搭建博客平台之后，更换主题为cactus，一款黑色背景的护眼主题，发现存在不完善的地方，所以决定通过 pull request 对其进行完善。</p></blockquote><hr><p>环境：github</p><hr><p>步骤：</p><p>进入hexo博客目录</p><p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g08qmctujej30nk06qq3z.jpg" alt="屏幕快照 2019-02-16 01"></p><p>先删除themes目录下的cactus主题：<code>rm -rf themes/cactus</code></p><p>fork源项目到自己的仓库</p><p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1g08qljuarbj31lk0qyjyf.jpg" alt="屏幕快照 2019-02-16 02"></p><p>clone新项目到themes目录下</p><p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g08qqgureuj30vk092ahs.jpg" alt="屏幕快照 2019-02-16 03"></p><p>重命名为cactus：<code>mv themes/hexo-theme-cactus themes/cactus</code></p><hr><p>参考：</p><p><a href="https://www.cnblogs.com/zhangjianbin/p/7774073.html" target="_blank" rel="noopener">创建 Pull Request</a></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> git </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>【Hexo】通过Hexo在github搭建blog</title>
+      <link href="/2019/02/16/hexo-github-blog/"/>
+      <url>/2019/02/16/hexo-github-blog/</url>
+      
+        <content type="html"><![CDATA[<p>环境：macbook pro 2018、</p><hr><p>参考：</p><p><a href="http://cxyxiaowu.com/posts/6993/" title="程序员小吴" target="_blank" rel="noopener">【新手向】从零开始搭建一个酷炫免费的个人博客</a></p><p><a href="https://github.com/probberechts/hexo-theme-cactus/blob/master/README.md" target="_blank" rel="noopener">hexo-theme-cactus</a></p><p><a href="https://www.jianshu.com/p/c42b48d26068/" target="_blank" rel="noopener">iPic - MAC图床神器</a></p><hr><p>常见问题：</p><blockquote><p>关联好github之后直接hexo d提示：<code>deploy not found: git</code></p><p>解决办法：先运行：<code>npm install --save hexo-deployer-git</code></p><p>参考：<a href="https://blog.csdn.net/weixin_36401046/article/details/52940313" target="_blank" rel="noopener">hexo d后 ERROR Deployer not found: git</a></p></blockquote><blockquote><p><code>WARN No layout: index.html</code></p><p>解决办法：下载主题到themes中</p><p>参考：<a href="https://blog.csdn.net/Mint6/article/details/79830063" target="_blank" rel="noopener">hexo搭建博客出现的两个错误</a></p></blockquote><blockquote><p><code>ERROR Process failed: languages/zh-TW.yml</code></p><p><code>YAMLException: bad indentation of a mapping entry at line 42, column 9:</code></p><p>​      <code>page: %d / %d</code></p><p>解决办法：创建pull request</p></blockquote>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Hexo </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Hello World</title>
       <link href="/2019/02/16/hello-world/"/>
       <url>/2019/02/16/hello-world/</url>
