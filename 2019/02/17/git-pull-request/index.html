@@ -6,22 +6,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="前言：在使用 Hexo + github 搭建博客平台之后，更换主题为cactus，一款黑色背景的护眼主题，发现存在不完善的地方，所以决定通过 pull request 对其进行完善。   环境：github  步骤： 进入hexo博客目录  先删除themes目录下的cactus主题：rm -rf themes/cactus fork源项目到自己的仓库  clone新项目到themes目录下">
+    <meta name="description" content="前言：在使用 Hexo + github 搭建博客平台之后，更换主题为cactus，一款黑色背景的护眼主题，发现存在不完善的地方，所以决定通过 pull request 对其进行完善。  目标：解决使用hexo s启动遇到的”bad indentation”问题：  步骤： 首先，进入hexo博客目录  先删除themes目录下的cactus主题：rm -rf themes/cactus for">
 <meta name="keywords" content="git">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【git】创建pull request">
+<meta property="og:title" content="【git】first pull request">
 <meta property="og:url" content="http://yoursite.com/2019/02/17/git-pull-request/index.html">
 <meta property="og:site_name" content="DevLog">
-<meta property="og:description" content="前言：在使用 Hexo + github 搭建博客平台之后，更换主题为cactus，一款黑色背景的护眼主题，发现存在不完善的地方，所以决定通过 pull request 对其进行完善。   环境：github  步骤： 进入hexo博客目录  先删除themes目录下的cactus主题：rm -rf themes/cactus fork源项目到自己的仓库  clone新项目到themes目录下">
+<meta property="og:description" content="前言：在使用 Hexo + github 搭建博客平台之后，更换主题为cactus，一款黑色背景的护眼主题，发现存在不完善的地方，所以决定通过 pull request 对其进行完善。  目标：解决使用hexo s启动遇到的”bad indentation”问题：  步骤： 首先，进入hexo博客目录  先删除themes目录下的cactus主题：rm -rf themes/cactus for">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tKfTcgy1g0937rmdxej30vg0dsnau.jpg">
 <meta property="og:image" content="https://ws4.sinaimg.cn/large/006tKfTcgy1g08qmctujej30nk06qq3z.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/006tKfTcgy1g08qljuarbj31lk0qyjyf.jpg">
 <meta property="og:image" content="https://ws4.sinaimg.cn/large/006tKfTcgy1g08qqgureuj30vk092ahs.jpg">
-<meta property="og:updated_time" content="2019-02-16T16:42:59.293Z">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tKfTcgy1g093z868x1j30vo0gik17.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcgy1g0940nb3ghj31j80mmter.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcgy1g094a1smyej31k20msag5.jpg">
+<meta property="og:updated_time" content="2019-02-17T00:53:08.153Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【git】创建pull request">
-<meta name="twitter:description" content="前言：在使用 Hexo + github 搭建博客平台之后，更换主题为cactus，一款黑色背景的护眼主题，发现存在不完善的地方，所以决定通过 pull request 对其进行完善。   环境：github  步骤： 进入hexo博客目录  先删除themes目录下的cactus主题：rm -rf themes/cactus fork源项目到自己的仓库  clone新项目到themes目录下">
-<meta name="twitter:image" content="https://ws4.sinaimg.cn/large/006tKfTcgy1g08qmctujej30nk06qq3z.jpg">
+<meta name="twitter:title" content="【git】first pull request">
+<meta name="twitter:description" content="前言：在使用 Hexo + github 搭建博客平台之后，更换主题为cactus，一款黑色背景的护眼主题，发现存在不完善的地方，所以决定通过 pull request 对其进行完善。  目标：解决使用hexo s启动遇到的”bad indentation”问题：  步骤： 首先，进入hexo博客目录  先删除themes目录下的cactus主题：rm -rf themes/cactus for">
+<meta name="twitter:image" content="https://ws4.sinaimg.cn/large/006tKfTcgy1g0937rmdxej30vg0dsnau.jpg">
     
     
         
@@ -41,7 +45,7 @@
         
     
     <!-- title -->
-    <title>【git】创建pull request</title>
+    <title>【git】first pull request</title>
     <!-- styles -->
     <link rel="stylesheet" href="/css/style.css">
     <!-- persian styles -->
@@ -92,15 +96,15 @@
     <div id="share" style="display: none">
       <ul>
   <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/02/17/git-pull-request/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/02/17/git-pull-request/&text=【git】创建pull request"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/02/17/git-pull-request/&title=【git】创建pull request"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/02/17/git-pull-request/&is_video=false&description=【git】创建pull request"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=【git】创建pull request&body=Check out this article: http://yoursite.com/2019/02/17/git-pull-request/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/02/17/git-pull-request/&title=【git】创建pull request"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/02/17/git-pull-request/&title=【git】创建pull request"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/02/17/git-pull-request/&title=【git】创建pull request"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/02/17/git-pull-request/&title=【git】创建pull request"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/02/17/git-pull-request/&name=【git】创建pull request&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/02/17/git-pull-request/&text=【git】first pull request"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/02/17/git-pull-request/&title=【git】first pull request"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/02/17/git-pull-request/&is_video=false&description=【git】first pull request"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=【git】first pull request&body=Check out this article: http://yoursite.com/2019/02/17/git-pull-request/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/02/17/git-pull-request/&title=【git】first pull request"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/02/17/git-pull-request/&title=【git】first pull request"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/02/17/git-pull-request/&title=【git】first pull request"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/02/17/git-pull-request/&title=【git】first pull request"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/02/17/git-pull-request/&name=【git】first pull request&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -117,7 +121,7 @@
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
-        【git】创建pull request
+        【git】first pull request
     </h1>
 
 
@@ -152,21 +156,31 @@
     <blockquote>
 <p>前言：在使用 Hexo + github 搭建博客平台之后，更换主题为cactus，一款黑色背景的护眼主题，发现存在不完善的地方，所以决定通过 pull request 对其进行完善。</p>
 </blockquote>
-<hr>
-<p>环境：github</p>
+<p><strong>目标：解决使用<code>hexo s</code>启动遇到的”bad indentation”问题：</strong><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g0937rmdxej30vg0dsnau.jpg" alt="屏幕快照 2019-02-17 07.52.08"></p>
 <hr>
 <p>步骤：</p>
-<p>进入hexo博客目录</p>
+<p>首先，进入hexo博客目录</p>
 <p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g08qmctujej30nk06qq3z.jpg" alt="屏幕快照 2019-02-16 01"></p>
 <p>先删除themes目录下的cactus主题：<code>rm -rf themes/cactus</code></p>
 <p>fork源项目到自己的仓库</p>
 <p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1g08qljuarbj31lk0qyjyf.jpg" alt="屏幕快照 2019-02-16 02"></p>
-<p>clone新项目到themes目录下</p>
+<p>clone自己仓库下的项目到themes目录下</p>
 <p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g08qqgureuj30vk092ahs.jpg" alt="屏幕快照 2019-02-16 03"></p>
-<p>重命名为cactus：<code>mv themes/hexo-theme-cactus themes/cactus</code></p>
+<p>重命名为cactus：<code>mv hexo-theme-cactus cactus</code></p>
+<p><strong>接下来，进入cactus目录，正式开始修改代码并创建pull request：</strong></p>
+<p>创建新分支：<code>git checkout -b branch-tony</code></p>
+<p>修改languages/zh-TW.yml：找到<code>page: %d / %d</code>改为<code>page: 第 %d 頁，共 %d 頁</code></p>
+<p>提交代码到自己仓库下的项目中</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g093z868x1j30vo0gik17.jpg" alt="屏幕快照 2019-02-17 08.13.03"></p>
+<p>这时看到自己仓库中的项目多了一个branch，点击<code>Compare &amp; pull request</code></p>
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g0940nb3ghj31j80mmter.jpg" alt="屏幕快照 2019-02-17 08.17.02"></p>
+<p>编辑并<code>Create pull request</code>（编辑忘记截图）</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g094a1smyej31k20msag5.jpg" alt="屏幕快照 2019-02-17 08.30.24"></p>
+<p><strong>完成，等待原作者的comment &amp; merge</strong></p>
 <hr>
 <p>参考：</p>
 <p><a href="https://www.cnblogs.com/zhangjianbin/p/7774073.html" target="_blank" rel="noopener">创建 Pull Request</a></p>
+<p><a href="https://blog.csdn.net/wangzi11111111/article/details/79861056" target="_blank" rel="noopener">如何使用github中的pull request功能？</a></p>
 
   </div>
 </article>
@@ -198,15 +212,15 @@
     <div id="share-footer" style="display: none">
       <ul>
   <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/02/17/git-pull-request/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/02/17/git-pull-request/&text=【git】创建pull request"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/02/17/git-pull-request/&title=【git】创建pull request"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/02/17/git-pull-request/&is_video=false&description=【git】创建pull request"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=【git】创建pull request&body=Check out this article: http://yoursite.com/2019/02/17/git-pull-request/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/02/17/git-pull-request/&title=【git】创建pull request"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/02/17/git-pull-request/&title=【git】创建pull request"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/02/17/git-pull-request/&title=【git】创建pull request"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/02/17/git-pull-request/&title=【git】创建pull request"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/02/17/git-pull-request/&name=【git】创建pull request&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/02/17/git-pull-request/&text=【git】first pull request"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/02/17/git-pull-request/&title=【git】first pull request"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/02/17/git-pull-request/&is_video=false&description=【git】first pull request"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=【git】first pull request&body=Check out this article: http://yoursite.com/2019/02/17/git-pull-request/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/02/17/git-pull-request/&title=【git】first pull request"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/02/17/git-pull-request/&title=【git】first pull request"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/02/17/git-pull-request/&title=【git】first pull request"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/02/17/git-pull-request/&title=【git】first pull request"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/02/17/git-pull-request/&name=【git】first pull request&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
