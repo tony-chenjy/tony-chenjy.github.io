@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>【git】add local project to github</title>
+      <link href="/2019/02/17/local-push-github/"/>
+      <url>/2019/02/17/local-push-github/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>前言：对于创建项目，更常见的做法是在本地通过ide创建，如果想要利用github共享项目，协作开发，就需要把本地创建的项目上传到github。</p></blockquote><p>目标：在本地通过IDEA创建springboot项目，并将其与github仓库关联，测试基本的pull和push操作。</p><p>环境：Intellij IDEA ULTIMATE 2018.03、jdk 1.8</p><hr><p>步骤：</p><p><strong>本地新建项目</strong></p><p>IDEA &gt; 菜单栏 File &gt; New &gt; Project &gt; Spring Initializr &gt; 填写项目信息，选择项目框架 &gt; Finish</p><p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1g09jlshdiqj30np0lj3yz.jpg" alt="2019.02.13 - 02 - 01"></p><p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g09jmrk5anj30np0ljglv.jpg" alt="2019.02.13 - 02 - 02"></p><p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g09jo0lxhdj30np0lj0td.jpg" alt="2019.02.13 - 02 - 03"></p><p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g09jo882cmj30np0lj3yj.jpg" alt="2019.02.13 - 02 - 04"></p><p><strong>github新建仓库</strong></p><p>github &gt; New Repository &gt; 填写仓库信息，选择”Initialize this repository with a README”，选择.gitignore &gt; Create repository（复制IDEA中的.gitignore文件，复制github中.gitignore文件内容至IDEA中）</p><p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g09joli92wj30lv0hi0ta.jpg" alt="2019.02.13 - 02 - 05"></p><p><strong>关联本地项目至github仓库</strong></p><p>IDEA中删除自动创建的maven文件</p><p><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1g09jq05jd9j31hc0swq44.jpg" alt="2019.02.13 - 02 - 06"></p><p>打开git工具，cd进入本地项目FullTextSearchService</p><p>初始化项目，加入git管理：<code>git init</code></p><p>将所有文件加入git：<code>git add .</code> </p><p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1g09jrhzmhpj30g50aamxm.jpg" alt="2019.02.13 - 02 - 07"></p><p>提交到本地仓库：<code>git commit -m &quot;init&quot;</code></p><p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1g09jrw0ye1j30g70aajrw.jpg" alt="2019.02.13 - 02 - 08"></p><p>关联本地项目与github仓库：<code>git remote add origin https://github.com/tony-chenjy/FullTextSearchService.git</code></p><p>本地项目上传至github：<code>git push -u origin master</code></p><p><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1g09jsdyrghj30g70aadge.jpg" alt="2019.02.13 - 02 - 09"></p><blockquote><p>遇到问题：<code>Updates were rejected because the remote contains work that you do</code></p><p>问题原因：由于初始化时生成了.gitignore和README文件，push之前没有pull最新版本导致报错。所以要先pull。（其实这个时候本地项目已经关联上github仓库了，但是要先解决文件冲突才能正确同步）</p><p>解决办法：</p><p>  查看本地项目所关联的仓库：<code>git remote -v</code></p><p>  从仓库更新本地项目：<code>git fetch</code></p><p>  从仓库更新本地项目：<code>git pull</code></p><p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g09jtj1w1mj30g80aajrt.jpg" alt="2019.02.13 - 02 - 10"></p><p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g09jw5pw0kj30g70aaaai.jpg" alt="2019.02.13 - 02 - 11"></p></blockquote><blockquote><p>遇到问题：<code>fatal: refusing to merge unrelated histories</code></p><p>问题原因：“其实这个问题是因为两个根本不相干的 git 库，一个是本地库，一个是远端库，然后本地要去推送到远端，远端觉得这个本地库跟自己不相干，所以告知无法合并”</p><p>解决办法：不相关仓库强制合并：<code>git pull origin master --allow-unrelated-histories</code></p><p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g09jwl17n4j30g50aa0t6.jpg" alt="2019.02.13 - 02 - 12"></p><p>参考：<a href="https://www.centos.bz/2018/03/git-%e5%87%ba%e7%8e%b0-fatal-refusing-to-merge-unrelated-histories-%e9%94%99%e8%af%af/" target="_blank" rel="noopener">git 出现 fatal: refusing to merge unrelated histories 错误</a></p></blockquote><blockquote><p>遇到问题：<code>CONFLICT (add/add): Merge conflict in .gitignore</code></p><p>问题原因：.gitignore文件冲突</p><p>解决办法：</p><p>  打开IDEA，修改冲突文件</p><p>  在git中标记冲突解决：<code>git stash clear</code></p><p>参考：<a href="https://www.cnblogs.com/baby123/p/6588378.html" target="_blank" rel="noopener">git 冲突解决</a></p></blockquote><p>重新提交：<code>git add .</code></p><p>重新提交：<code>git commit -m &quot;conflict clear&quot;</code></p><p>重新提交：<code>git push origin master</code></p><p><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1g09jxrpliij30g90abmxn.jpg" alt="2019.02.13 - 02 - 13"></p><p><strong>本地项目与github仓库关联完毕。</strong></p><p>PS：其实如果在github创建空的仓库，关联的时候应该就不会出现冲突，但是通过合并两个.gitignore的文件就能同时使用github和IDEA排除提交的规则。</p><hr><p>参考：</p><p><a href="https://www.cnblogs.com/shenchanghui/p/7184101.html" target="_blank" rel="noopener">如何把本地项目上传到Github</a>    </p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> git </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【git】update fork project // TODO</title>
       <link href="/2019/02/17/git-fork-update/"/>
       <url>/2019/02/17/git-fork-update/</url>
