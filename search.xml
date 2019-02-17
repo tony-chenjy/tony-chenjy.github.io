@@ -4,12 +4,43 @@
   
     
     <entry>
+      <title>【git】update fork project</title>
+      <link href="/2019/02/17/git-fork-update/"/>
+      <url>/2019/02/17/git-fork-update/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>前言：// TODO</p></blockquote><hr><p>参考：</p><p><a href="https://www.cnblogs.com/walblog/articles/9061960.html" target="_blank" rel="noopener">github如何实现fork的项目与原项目同步</a></p><p><a href="https://www.cnblogs.com/relucent/p/6479213.html" target="_blank" rel="noopener">Github上fork项目后与原项目保持同步</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 实战 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> git </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【git】first pull request</title>
       <link href="/2019/02/17/git-pull-request/"/>
       <url>/2019/02/17/git-pull-request/</url>
       
-        <content type="html"><![CDATA[<blockquote><p>前言：在使用 Hexo + github 搭建博客平台之后，更换主题为cactus，一款黑色背景的护眼主题，发现存在不完善的地方，所以决定通过 pull request 对其进行完善。</p></blockquote><p><strong>目标：解决使用<code>hexo s</code>启动遇到的”bad indentation”问题：</strong><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g0937rmdxej30vg0dsnau.jpg" alt="屏幕快照 2019-02-17 07.52.08"></p><hr><p>步骤：</p><p>首先，进入hexo博客目录</p><p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g08qmctujej30nk06qq3z.jpg" alt="屏幕快照 2019-02-16 01"></p><p>先删除themes目录下的cactus主题：<code>rm -rf themes/cactus</code></p><p>fork源项目到自己的仓库</p><p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1g08qljuarbj31lk0qyjyf.jpg" alt="屏幕快照 2019-02-16 02"></p><p>clone自己仓库下的项目到themes目录下</p><p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g08qqgureuj30vk092ahs.jpg" alt="屏幕快照 2019-02-16 03"></p><p>重命名为cactus：<code>mv hexo-theme-cactus cactus</code></p><p><strong>接下来，进入cactus目录，正式开始修改代码并创建pull request：</strong></p><p>创建新分支：<code>git checkout -b branch-tony</code></p><p>修改languages/zh-TW.yml：找到<code>page: %d / %d</code>改为<code>page: 第 %d 頁，共 %d 頁</code></p><p>提交代码到自己仓库下的项目中</p><p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g093z868x1j30vo0gik17.jpg" alt="屏幕快照 2019-02-17 08.13.03"></p><p>这时看到自己仓库中的项目多了一个branch，点击<code>Compare &amp; pull request</code></p><p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g0940nb3ghj31j80mmter.jpg" alt="屏幕快照 2019-02-17 08.17.02"></p><p>编辑并<code>Create pull request</code>（编辑忘记截图）</p><p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g094a1smyej31k20msag5.jpg" alt="屏幕快照 2019-02-17 08.30.24"></p><p><strong>完成，等待原作者的comment &amp; merge</strong></p><hr><p>参考：</p><p><a href="https://www.cnblogs.com/zhangjianbin/p/7774073.html" target="_blank" rel="noopener">创建 Pull Request</a></p><p><a href="https://blog.csdn.net/wangzi11111111/article/details/79861056" target="_blank" rel="noopener">如何使用github中的pull request功能？</a></p>]]></content>
+        <content type="html"><![CDATA[<blockquote><p>前言：在使用 Hexo + github 搭建博客平台之后，更换主题为cactus，一款黑色背景的护眼主题，发现存在不完善的地方，所以决定通过 pull request 对其进行完善。</p></blockquote><p><strong>目标：解决使用<code>hexo s</code>启动遇到的”bad indentation”问题：</strong><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g0937rmdxej30vg0dsnau.jpg" alt="屏幕快照 2019-02-17 07.52.08"></p><hr><p>步骤：</p><p>首先，进入hexo博客目录</p><p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g08qmctujej30nk06qq3z.jpg" alt="屏幕快照 2019-02-16 01"></p><p>先删除themes目录下的cactus主题：<code>rm -rf themes/cactus</code></p><p>fork源项目到自己的仓库</p><p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1g08qljuarbj31lk0qyjyf.jpg" alt="屏幕快照 2019-02-16 02"></p><p>clone自己仓库下的项目到themes目录下</p><p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g08qqgureuj30vk092ahs.jpg" alt="屏幕快照 2019-02-16 03"></p><p>重命名为cactus：<code>mv hexo-theme-cactus cactus</code></p><p><strong>接下来，进入cactus目录，正式开始修改代码并创建pull request：</strong></p><p>创建新分支：<code>git checkout -b branch-tony</code></p><p>修改languages/zh-TW.yml：找到<code>page: %d / %d</code>改为<code>page: 第 %d 頁，共 %d 頁</code></p><p>提交代码到自己仓库下的项目中</p><p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g093z868x1j30vo0gik17.jpg" alt="屏幕快照 2019-02-17 08.13.03"></p><p>这时看到自己仓库中的项目多了一个branch，点击<code>Compare &amp; pull request</code></p><p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g0940nb3ghj31j80mmter.jpg" alt="屏幕快照 2019-02-17 08.17.02"></p><p>编辑并<code>Create pull request</code>（编辑忘记截图）</p><p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g094a1smyej31k20msag5.jpg" alt="屏幕快照 2019-02-17 08.30.24"></p><p><strong>完成，等待原作者的comment &amp; merge</strong></p><p>总结：当我们使用github上的开源项目发现有bug而自己又能改时，需要：1.先把原仓库的原项目fork到自己的仓库作为自己的项目（注意这时自己仓库中的项目是与原项目独立的两个项目）；2.git clone到本地；3.创建branch，修改本地项目，并push到创建的branch；4.在github上create pull request（注意上方教程直接create pull request到原仓库的原项目，实际上自己仓库中fork过来的项目没有改变，这时可以再create pull request到自己仓库的项目，一般建议创建branch修改再create pull request，这样能保持自己仓库中的项目定制化的配置。）</p><hr><p>参考：</p><p><a href="https://www.cnblogs.com/zhangjianbin/p/7774073.html" target="_blank" rel="noopener">创建 Pull Request</a></p><p><a href="https://blog.csdn.net/wangzi11111111/article/details/79861056" target="_blank" rel="noopener">如何使用github中的pull request功能？</a></p>]]></content>
       
+      
+      <categories>
+          
+          <category> 实战 </category>
+          
+      </categories>
       
       
         <tags>
@@ -29,6 +60,12 @@
       
         <content type="html"><![CDATA[<p>环境：macbook pro 2018, </p><hr><p>参考：</p><p><a href="http://cxyxiaowu.com/posts/6993/" title="程序员小吴" target="_blank" rel="noopener">【新手向】从零开始搭建一个酷炫免费的个人博客</a></p><p><a href="https://github.com/probberechts/hexo-theme-cactus/blob/master/README.md" target="_blank" rel="noopener">hexo-theme-cactus</a></p><p><a href="https://www.jianshu.com/p/c42b48d26068/" target="_blank" rel="noopener">iPic - MAC图床神器</a></p><hr><p>常见问题：</p><blockquote><p>关联好github之后直接hexo d提示：<code>deploy not found: git</code></p><p>解决办法：先运行：<code>npm install --save hexo-deployer-git</code></p><p>参考：<a href="https://blog.csdn.net/weixin_36401046/article/details/52940313" target="_blank" rel="noopener">hexo d后 ERROR Deployer not found: git</a></p></blockquote><blockquote><p><code>WARN No layout: index.html</code></p><p>解决办法：下载主题到themes中</p><p>参考：<a href="https://blog.csdn.net/Mint6/article/details/79830063" target="_blank" rel="noopener">hexo搭建博客出现的两个错误</a></p></blockquote><blockquote><p><code>ERROR Process failed: languages/zh-TW.yml</code></p><p><code>YAMLException: bad indentation of a mapping entry at line 42, column 9:</code></p><p>​      <code>page: %d / %d</code></p><p>解决办法：创建pull request</p></blockquote>]]></content>
       
+      
+      <categories>
+          
+          <category> 实战 </category>
+          
+      </categories>
       
       
         <tags>

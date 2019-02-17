@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://ws4.sinaimg.cn/large/006tKfTcgy1g093z868x1j30vo0gik17.jpg">
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcgy1g0940nb3ghj31j80mmter.jpg">
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcgy1g094a1smyej31k20msag5.jpg">
-<meta property="og:updated_time" content="2019-02-17T00:53:08.153Z">
+<meta property="og:updated_time" content="2019-02-17T02:48:49.274Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【git】first pull request">
 <meta name="twitter:description" content="前言：在使用 Hexo + github 搭建博客平台之后，更换主题为cactus，一款黑色背景的护眼主题，发现存在不完善的地方，所以决定通过 pull request 对其进行完善。  目标：解决使用hexo s启动遇到的”bad indentation”问题：  步骤： 首先，进入hexo博客目录  先删除themes目录下的cactus主题：rm -rf themes/cactus for">
@@ -69,17 +69,21 @@
          
           <li><a href="/">首页</a></li>
          
-          <li><a href="/about/">关于</a></li>
-         
           <li><a href="/archives/">归档</a></li>
          
-          <li><a href="/projects_url">项目</a></li>
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
         
       </ul>
     </span>
     <br>
     <span id="actions">
       <ul>
+        
+        <li><a class="icon" href="/2019/02/17/git-fork-update/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
         <li><a class="icon" href="/2019/02/16/hexo-github-blog/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
@@ -140,6 +144,11 @@
 
 
       
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/实战/">实战</a>
+    </div>
+
 
       
     <div class="article-tag">
@@ -177,6 +186,7 @@
 <p>编辑并<code>Create pull request</code>（编辑忘记截图）</p>
 <p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g094a1smyej31k20msag5.jpg" alt="屏幕快照 2019-02-17 08.30.24"></p>
 <p><strong>完成，等待原作者的comment &amp; merge</strong></p>
+<p>总结：当我们使用github上的开源项目发现有bug而自己又能改时，需要：1.先把原仓库的原项目fork到自己的仓库作为自己的项目（注意这时自己仓库中的项目是与原项目独立的两个项目）；2.git clone到本地；3.创建branch，修改本地项目，并push到创建的branch；4.在github上create pull request（注意上方教程直接create pull request到原仓库的原项目，实际上自己仓库中fork过来的项目没有改变，这时可以再create pull request到自己仓库的项目，一般建议创建branch修改再create pull request，这样能保持自己仓库中的项目定制化的配置。）</p>
 <hr>
 <p>参考：</p>
 <p><a href="https://www.cnblogs.com/zhangjianbin/p/7774073.html" target="_blank" rel="noopener">创建 Pull Request</a></p>
@@ -196,11 +206,13 @@
          
           <li><a href="/">首页</a></li>
          
-          <li><a href="/about/">关于</a></li>
-         
           <li><a href="/archives/">归档</a></li>
          
-          <li><a href="/projects_url">项目</a></li>
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
         
       </ul>
     </div>
@@ -246,11 +258,13 @@
          
           <li><a href="/">首页</a></li>
          
-          <li><a href="/about/">关于</a></li>
-         
           <li><a href="/archives/">归档</a></li>
          
-          <li><a href="/projects_url">项目</a></li>
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
         
       </ul>
     </nav>
