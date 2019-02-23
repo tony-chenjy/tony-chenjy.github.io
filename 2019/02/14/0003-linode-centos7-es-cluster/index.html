@@ -7,7 +7,7 @@
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="description" content="在学习Elasticsearch框架之前，必须先让Elasticsearch集群跑起来，最简单且容易迁移的办法就是使用docker。 Goal搭建Elasticsearch集群，并完成测试。 Environment &amp;amp; Toolscentos7, openjdk1.8, docker 18.09.1, docker-compose 1.23.2,  Guide检查环境查看jdk版本：jav">
-<meta name="keywords" content="Elasticsearch,linode,centos7,docker-compose">
+<meta name="keywords" content="linode,centos7,docker-compose,Elasticsearch">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【Elasticsearch】using docker-compose to set up elasticsearch cluster">
 <meta property="og:url" content="http://yoursite.com/2019/02/14/0003-linode-centos7-es-cluster/index.html">
@@ -28,7 +28,7 @@
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/006tKfTcgy1g09tgp2o66j30bl0iq75p.jpg">
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcgy1g09tiobh3wj30h70p00td.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/006tKfTcgy1g09tm413kxj30d3035mx3.jpg">
-<meta property="og:updated_time" content="2019-02-23T08:27:47.993Z">
+<meta property="og:updated_time" content="2019-02-23T08:32:13.791Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Elasticsearch】using docker-compose to set up elasticsearch cluster">
 <meta name="twitter:description" content="在学习Elasticsearch框架之前，必须先让Elasticsearch集群跑起来，最简单且容易迁移的办法就是使用docker。 Goal搭建Elasticsearch集群，并完成测试。 Environment &amp;amp; Toolscentos7, openjdk1.8, docker 18.09.1, docker-compose 1.23.2,  Guide检查环境查看jdk版本：jav">
@@ -196,7 +196,7 @@
 <p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g09tgenen2j30b101x0sk.jpg" alt="2019.02.14 - 01 - 11"></p>
 <p>测试kibana是否成功启动：访问<code>http://{ip}:5601</code></p>
 <p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1g09tgp2o66j30bl0iq75p.jpg" alt="2019.02.14 - 01 - 12"></p>
-<p><strong>成功搭建Elasticsearch应用，可以开始开发全文检索服务了</strong></p>
+<p>成功搭建Elasticsearch应用，可以开始开发全文检索服务了</p>
 <p>PS：docker启动的容器每次关闭之后数据就会自动清除，如果想要保存数据就要做存储映射，即把容器的数据映射到本机。</p>
 <h3 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h3><p>实现容器数据映射到主机，只需要修改docker-compose.yml：<code>vim docker-compose.yml</code></p>
 <p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g09tiobh3wj30h70p00td.jpg" alt="2019.02.14 - 01 - 13"></p>

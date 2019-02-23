@@ -7,7 +7,7 @@
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="description" content="对于创建项目，更常见的做法是在本地通过ide创建，如果想要利用github共享项目，协作开发，就需要把本地创建的项目关联至github仓库。 Goal在本地通过IDEA创建springboot项目，并将其与github仓库关联，测试基本的pull和push操作。 Environment &amp;amp; ToolsIntellij IDEA ULTIMATE 2018.03, jdk 1.8 Guide">
-<meta name="keywords" content="git,Elasticsearch">
+<meta name="keywords" content="Elasticsearch,git">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【git】add local project to github">
 <meta property="og:url" content="http://yoursite.com/2019/02/13/0002-local-push-github/index.html">
@@ -27,7 +27,7 @@
 <meta property="og:image" content="https://ws4.sinaimg.cn/large/006tKfTcgy1g09jw5pw0kj30g70aaaai.jpg">
 <meta property="og:image" content="https://ws4.sinaimg.cn/large/006tKfTcgy1g09jwl17n4j30g50aa0t6.jpg">
 <meta property="og:image" content="https://ws2.sinaimg.cn/large/006tKfTcgy1g09jxrpliij30g90abmxn.jpg">
-<meta property="og:updated_time" content="2019-02-18T16:38:39.107Z">
+<meta property="og:updated_time" content="2019-02-23T08:31:23.030Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【git】add local project to github">
 <meta name="twitter:description" content="对于创建项目，更常见的做法是在本地通过ide创建，如果想要利用github共享项目，协作开发，就需要把本地创建的项目关联至github仓库。 Goal在本地通过IDEA创建springboot项目，并将其与github仓库关联，测试基本的pull和push操作。 Environment &amp;amp; ToolsIntellij IDEA ULTIMATE 2018.03, jdk 1.8 Guide">
@@ -209,9 +209,8 @@
 <p>  在git中标记冲突解决：<code>git stash clear</code></p>
 <p>参考：<a href="https://www.cnblogs.com/baby123/p/6588378.html" target="_blank" rel="noopener">git 冲突解决</a></p>
 </blockquote>
-<p>重新提交：<code>git add .</code></p>
-<p>重新提交：<code>git commit -m &quot;conflict clear&quot;</code></p>
-<p>重新提交：<code>git push origin master</code></p>
+<p>重新提交</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m &quot;conflict clear&quot;</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
 <p><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1g09jxrpliij30g90abmxn.jpg" alt="2019.02.13 - 02 - 13"></p>
 <p>本地项目与github仓库关联完毕。</p>
 <p>PS：其实如果在github创建空的仓库，关联的时候应该就不会出现冲突，但是通过合并两个.gitignore的文件就能同时使用github和IDEA排除提交的规则。</p>
