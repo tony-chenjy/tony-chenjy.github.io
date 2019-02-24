@@ -6,13 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="在学习Elasticsearch框架之前，必须先让Elasticsearch集群跑起来，最简单且容易迁移的办法就是使用docker。 Goal搭建Elasticsearch集群，并完成测试。 Environment &amp;amp; Toolscentos7, openjdk1.8, docker 18.09.1, docker-compose 1.23.2,  Guide检查环境查看jdk版本：jav">
-<meta name="keywords" content="linode,centos7,docker-compose,Elasticsearch">
+    <meta name="description" content="在学习Elasticsearch框架之前，必须先让Elasticsearch集群跑起来，最简单且容易迁移的办法就是使用docker。 Goal搭建Elasticsearch集群，并完成测试。 Environment &amp;amp; Toolscentos7, openjdk1.8, docker 18.09.1, docker-compose 1.23.2,  Guide检查环境123查看jdk版本：">
+<meta name="keywords" content="Elasticsearch,linode,centos7,docker-compose">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【Elasticsearch】using docker-compose to set up elasticsearch cluster">
 <meta property="og:url" content="http://yoursite.com/2019/02/14/0003-linode-centos7-es-cluster/index.html">
 <meta property="og:site_name" content="DevLog">
-<meta property="og:description" content="在学习Elasticsearch框架之前，必须先让Elasticsearch集群跑起来，最简单且容易迁移的办法就是使用docker。 Goal搭建Elasticsearch集群，并完成测试。 Environment &amp;amp; Toolscentos7, openjdk1.8, docker 18.09.1, docker-compose 1.23.2,  Guide检查环境查看jdk版本：jav">
+<meta property="og:description" content="在学习Elasticsearch框架之前，必须先让Elasticsearch集群跑起来，最简单且容易迁移的办法就是使用docker。 Goal搭建Elasticsearch集群，并完成测试。 Environment &amp;amp; Toolscentos7, openjdk1.8, docker 18.09.1, docker-compose 1.23.2,  Guide检查环境123查看jdk版本：">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/006tKfTcgy1g09t8xqvqfj30bk01ut8k.jpg">
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcgy1g09t98sfx8j30ag0a7q34.jpg">
@@ -28,10 +28,10 @@
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/006tKfTcgy1g09tgp2o66j30bl0iq75p.jpg">
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcgy1g09tiobh3wj30h70p00td.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/006tKfTcgy1g09tm413kxj30d3035mx3.jpg">
-<meta property="og:updated_time" content="2019-02-23T08:32:13.791Z">
+<meta property="og:updated_time" content="2019-02-24T02:33:38.700Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Elasticsearch】using docker-compose to set up elasticsearch cluster">
-<meta name="twitter:description" content="在学习Elasticsearch框架之前，必须先让Elasticsearch集群跑起来，最简单且容易迁移的办法就是使用docker。 Goal搭建Elasticsearch集群，并完成测试。 Environment &amp;amp; Toolscentos7, openjdk1.8, docker 18.09.1, docker-compose 1.23.2,  Guide检查环境查看jdk版本：jav">
+<meta name="twitter:description" content="在学习Elasticsearch框架之前，必须先让Elasticsearch集群跑起来，最简单且容易迁移的办法就是使用docker。 Goal搭建Elasticsearch集群，并完成测试。 Environment &amp;amp; Toolscentos7, openjdk1.8, docker 18.09.1, docker-compose 1.23.2,  Guide检查环境123查看jdk版本：">
 <meta name="twitter:image" content="https://ws1.sinaimg.cn/large/006tKfTcgy1g09t8xqvqfj30bk01ut8k.jpg">
     
     
@@ -167,10 +167,8 @@
     <p>在学习Elasticsearch框架之前，必须先让Elasticsearch集群跑起来，最简单且容易迁移的办法就是使用docker。</p>
 <h2 id="Goal"><a href="#Goal" class="headerlink" title="Goal"></a>Goal</h2><p>搭建Elasticsearch集群，并完成测试。</p>
 <h2 id="Environment-amp-Tools"><a href="#Environment-amp-Tools" class="headerlink" title="Environment &amp; Tools"></a>Environment &amp; Tools</h2><p>centos7, openjdk1.8, docker 18.09.1, docker-compose 1.23.2, </p>
-<h2 id="Guide"><a href="#Guide" class="headerlink" title="Guide"></a>Guide</h2><h3 id="检查环境"><a href="#检查环境" class="headerlink" title="检查环境"></a>检查环境</h3><p>查看jdk版本：<code>java -version</code></p>
+<h2 id="Guide"><a href="#Guide" class="headerlink" title="Guide"></a>Guide</h2><h3 id="检查环境"><a href="#检查环境" class="headerlink" title="检查环境"></a>检查环境</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">查看jdk版本：java -version</span><br><span class="line">查看docker版本：docker version</span><br><span class="line">查看docker-compose版本：docker-compose version</span><br></pre></td></tr></table></figure>
 <p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1g09t8xqvqfj30bk01ut8k.jpg" alt="2019.02.14 - 01 - 01"></p>
-<p>查看docker版本：<code>docker version</code></p>
-<p>查看 docker-compose 版本：<code>docker-compose version</code></p>
 <p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g09t98sfx8j30ag0a7q34.jpg" alt="2019.02.14 - 01 - 02"></p>
 <h3 id="通过docker安装Elasticsearch（参考Elasticsearch官网）"><a href="#通过docker安装Elasticsearch（参考Elasticsearch官网）" class="headerlink" title="通过docker安装Elasticsearch（参考Elasticsearch官网）"></a>通过docker安装Elasticsearch（参考<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html" target="_blank" rel="noopener">Elasticsearch官网</a>）</h3><p>通过docker拉取es镜像：<code>docker pull docker.elastic.co/elasticsearch/elasticsearch:6.6.0</code></p>
 <p><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1g09tbjztb9j30iq04vjrh.jpg" alt="2019.02.14 - 01 - 03"></p>

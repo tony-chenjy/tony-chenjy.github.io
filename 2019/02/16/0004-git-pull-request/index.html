@@ -6,13 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="在使用 Hexo + github 搭建博客平台之后，更换主题为cactus，一款黑色背景的护眼主题，发现存在不完善的地方，于是本着对其进行完善的目的，顺便学习 create pull request （也就是当github上的开源项目在使用过程中出现个性化的需求，便可以通过fork定制符合个人需求的版本，或者通过pull request完善其功能） Goal解决使用hexo s启动遇到的”bad">
+    <meta name="description" content="在使用 Hexo + github 搭建博客平台之后，更换主题为cactus，一款黑色背景的护眼主题，发现存在不完善的地方，于是本着对其进行完善的目的，顺便学习 create pull request （也就是当github上的开源项目在使用过程中出现个性化的需求，便可以通过fork定制符合个人需求的版本，或者通过pull request完善其功能） PS: 关于git分支，每次创建git仓库或者">
 <meta name="keywords" content="git">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【git】first pull request">
+<meta property="og:title" content="【git】first pull request(already merged)">
 <meta property="og:url" content="http://yoursite.com/2019/02/16/0004-git-pull-request/index.html">
 <meta property="og:site_name" content="DevLog">
-<meta property="og:description" content="在使用 Hexo + github 搭建博客平台之后，更换主题为cactus，一款黑色背景的护眼主题，发现存在不完善的地方，于是本着对其进行完善的目的，顺便学习 create pull request （也就是当github上的开源项目在使用过程中出现个性化的需求，便可以通过fork定制符合个人需求的版本，或者通过pull request完善其功能） Goal解决使用hexo s启动遇到的”bad">
+<meta property="og:description" content="在使用 Hexo + github 搭建博客平台之后，更换主题为cactus，一款黑色背景的护眼主题，发现存在不完善的地方，于是本着对其进行完善的目的，顺便学习 create pull request （也就是当github上的开源项目在使用过程中出现个性化的需求，便可以通过fork定制符合个人需求的版本，或者通过pull request完善其功能） PS: 关于git分支，每次创建git仓库或者">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://ws4.sinaimg.cn/large/006tKfTcgy1g0937rmdxej30vg0dsnau.jpg">
 <meta property="og:image" content="https://ws4.sinaimg.cn/large/006tKfTcgy1g08qmctujej30nk06qq3z.jpg">
@@ -21,10 +21,10 @@
 <meta property="og:image" content="https://ws4.sinaimg.cn/large/006tKfTcgy1g093z868x1j30vo0gik17.jpg">
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcgy1g0940nb3ghj31j80mmter.jpg">
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcgy1g094a1smyej31k20msag5.jpg">
-<meta property="og:updated_time" content="2019-02-18T16:15:24.864Z">
+<meta property="og:updated_time" content="2019-02-24T02:59:22.815Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【git】first pull request">
-<meta name="twitter:description" content="在使用 Hexo + github 搭建博客平台之后，更换主题为cactus，一款黑色背景的护眼主题，发现存在不完善的地方，于是本着对其进行完善的目的，顺便学习 create pull request （也就是当github上的开源项目在使用过程中出现个性化的需求，便可以通过fork定制符合个人需求的版本，或者通过pull request完善其功能） Goal解决使用hexo s启动遇到的”bad">
+<meta name="twitter:title" content="【git】first pull request(already merged)">
+<meta name="twitter:description" content="在使用 Hexo + github 搭建博客平台之后，更换主题为cactus，一款黑色背景的护眼主题，发现存在不完善的地方，于是本着对其进行完善的目的，顺便学习 create pull request （也就是当github上的开源项目在使用过程中出现个性化的需求，便可以通过fork定制符合个人需求的版本，或者通过pull request完善其功能） PS: 关于git分支，每次创建git仓库或者">
 <meta name="twitter:image" content="https://ws4.sinaimg.cn/large/006tKfTcgy1g0937rmdxej30vg0dsnau.jpg">
     
     
@@ -45,7 +45,7 @@
         
     
     <!-- title -->
-    <title>【git】first pull request</title>
+    <title>【git】first pull request(already merged)</title>
     <!-- styles -->
     <link rel="stylesheet" href="/css/style.css">
     <!-- persian styles -->
@@ -100,20 +100,20 @@
     <div id="share" style="display: none">
       <ul>
   <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/02/16/0004-git-pull-request/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/02/16/0004-git-pull-request/&text=【git】first pull request"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/02/16/0004-git-pull-request/&title=【git】first pull request"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/02/16/0004-git-pull-request/&is_video=false&description=【git】first pull request"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=【git】first pull request&body=Check out this article: http://yoursite.com/2019/02/16/0004-git-pull-request/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/02/16/0004-git-pull-request/&title=【git】first pull request"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/02/16/0004-git-pull-request/&title=【git】first pull request"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/02/16/0004-git-pull-request/&title=【git】first pull request"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/02/16/0004-git-pull-request/&title=【git】first pull request"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/02/16/0004-git-pull-request/&name=【git】first pull request&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/02/16/0004-git-pull-request/&text=【git】first pull request(already merged)"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/02/16/0004-git-pull-request/&title=【git】first pull request(already merged)"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/02/16/0004-git-pull-request/&is_video=false&description=【git】first pull request(already merged)"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=【git】first pull request(already merged)&body=Check out this article: http://yoursite.com/2019/02/16/0004-git-pull-request/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/02/16/0004-git-pull-request/&title=【git】first pull request(already merged)"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/02/16/0004-git-pull-request/&title=【git】first pull request(already merged)"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/02/16/0004-git-pull-request/&title=【git】first pull request(already merged)"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/02/16/0004-git-pull-request/&title=【git】first pull request(already merged)"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/02/16/0004-git-pull-request/&name=【git】first pull request(already merged)&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Goal"><span class="toc-number">1.</span> <span class="toc-text">Goal</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Guide"><span class="toc-number">2.</span> <span class="toc-text">Guide</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#fork-origin-repository"><span class="toc-number">2.1.</span> <span class="toc-text">fork origin repository</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#checkout-a-branch-amp-modify"><span class="toc-number">2.2.</span> <span class="toc-text">checkout a branch &amp; modify</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#create-a-pull-request"><span class="toc-number">2.3.</span> <span class="toc-text">create a pull request</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#complete-amp-wait-for-merger"><span class="toc-number">2.4.</span> <span class="toc-text">complete &amp; wait for merger</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">3.</span> <span class="toc-text">Reference</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Goal"><span class="toc-number">1.</span> <span class="toc-text">Goal</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Guide"><span class="toc-number">2.</span> <span class="toc-text">Guide</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#fork-original-repository"><span class="toc-number">2.1.</span> <span class="toc-text">fork original repository</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#checkout-a-branch-amp-modify"><span class="toc-number">2.2.</span> <span class="toc-text">checkout a branch &amp; modify</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#create-a-pull-request"><span class="toc-number">2.3.</span> <span class="toc-text">create a pull request</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#complete-amp-wait-for-merger"><span class="toc-number">2.4.</span> <span class="toc-text">complete &amp; wait for merger</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">3.</span> <span class="toc-text">Reference</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -125,7 +125,7 @@
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
-        【git】first pull request
+        【git】first pull request(already merged)
     </h1>
 
 
@@ -158,25 +158,26 @@
 
   <div class="content" itemprop="articleBody">
     <p>在使用 Hexo + github 搭建博客平台之后，更换主题为cactus，一款黑色背景的护眼主题，发现存在不完善的地方，于是本着对其进行完善的目的，顺便学习 create pull request （也就是当github上的开源项目在使用过程中出现个性化的需求，便可以通过fork定制符合个人需求的版本，或者通过pull request完善其功能）</p>
-<h2 id="Goal"><a href="#Goal" class="headerlink" title="Goal"></a>Goal</h2><p>解决使用<code>hexo s</code>启动遇到的”bad indentation”问题<img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g0937rmdxej30vg0dsnau.jpg" alt="屏幕快照 2019-02-17 07.52.08"></p>
-<h2 id="Guide"><a href="#Guide" class="headerlink" title="Guide"></a>Guide</h2><h3 id="fork-origin-repository"><a href="#fork-origin-repository" class="headerlink" title="fork origin repository"></a>fork origin repository</h3><p>进入hexo博客目录</p>
+<p>PS: 关于git分支，每次创建git仓库或者fork原始仓库，都会默认创建一个master分支，一般情况下对于自己创建的仓库都是直接使用<code>git push origin master</code>直接更新master分支内容，而当我们需要修改他人的远程仓库的内容，由于权限问题只能通过创建pull request，提交修改，理论上可以直接将自己master分支的修改创建pull request，但一般都是创建一个专门用于pull request的分支，这样就能保持master分支一些定制化的设置，所以更通用更新远程仓库（自己的远程仓库或他人的远程仓库）的方法是统一使用创建pull request的方法，对于自己的远程仓库可以自己merge，虽然这样显得有些麻烦，但是通用。所以更新个人远程仓库的两种方法：1. <code>git push origin master</code>, 2. create pull request.</p>
+<h2 id="Goal"><a href="#Goal" class="headerlink" title="Goal"></a>Goal</h2><p>为使用<code>hexo s</code>启动遇到的”bad indentation”问题创建<code>pull request</code><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g0937rmdxej30vg0dsnau.jpg" alt="屏幕快照 2019-02-17 07.52.08"></p>
+<h2 id="Guide"><a href="#Guide" class="headerlink" title="Guide"></a>Guide</h2><h3 id="fork-original-repository"><a href="#fork-original-repository" class="headerlink" title="fork original repository"></a>fork original repository</h3><p>进入hexo博客目录</p>
 <p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g08qmctujej30nk06qq3z.jpg" alt="屏幕快照 2019-02-16 01"></p>
 <p>删除themes目录下的cactus主题：<code>rm -rf themes/cactus</code></p>
-<p>fork远程仓库为本地仓库</p>
+<p>fork原始仓库</p>
 <p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1g08qljuarbj31lk0qyjyf.jpg" alt="屏幕快照 2019-02-16 02"></p>
-<p>clone本地仓库到themes目录</p>
+<p>clone个人远程仓库到themes目录</p>
 <p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g08qqgureuj30vk092ahs.jpg" alt="屏幕快照 2019-02-16 03"></p>
 <p>重命名：<code>mv hexo-theme-cactus cactus</code></p>
-<h3 id="checkout-a-branch-amp-modify"><a href="#checkout-a-branch-amp-modify" class="headerlink" title="checkout a branch &amp; modify"></a>checkout a branch &amp; modify</h3><p>创建分支用于pull request：<code>git checkout -b branch-tony</code></p>
+<h3 id="checkout-a-branch-amp-modify"><a href="#checkout-a-branch-amp-modify" class="headerlink" title="checkout a branch &amp; modify"></a>checkout a branch &amp; modify</h3><p>创建并进入pull request专用分支：<code>git checkout -b branch-tony</code></p>
 <p>修改languages/zh-TW.yml：找到<code>page: %d / %d</code>改为<code>page: 第 %d 頁，共 %d 頁</code></p>
-<p>提交代码到pull request分支</p>
+<p>提交代码到pull request专用分支：branch-tony</p>
 <p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g093z868x1j30vo0gik17.jpg" alt="屏幕快照 2019-02-17 08.13.03"></p>
-<h3 id="create-a-pull-request"><a href="#create-a-pull-request" class="headerlink" title="create a pull request"></a>create a pull request</h3><p>这时看到本地仓库中多了一个branch，点击<code>Compare &amp; pull request</code></p>
+<h3 id="create-a-pull-request"><a href="#create-a-pull-request" class="headerlink" title="create a pull request"></a>create a pull request</h3><p>这时看到github个人远程仓库中多了一个branch，点击<code>Compare &amp; pull request</code></p>
 <p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g0940nb3ghj31j80mmter.jpg" alt="屏幕快照 2019-02-17 08.17.02"></p>
 <p>编辑并<code>Create pull request</code>（编辑忘记截图）</p>
 <p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g094a1smyej31k20msag5.jpg" alt="屏幕快照 2019-02-17 08.30.24"></p>
 <h3 id="complete-amp-wait-for-merger"><a href="#complete-amp-wait-for-merger" class="headerlink" title="complete &amp; wait for merger"></a>complete &amp; wait for merger</h3><p>完成，等待原作者的comment &amp; merge</p>
-<p>总结：当我们使用github上的开源项目发现有bug而自己又能改时，需要：1.先把原仓库的原项目fork到自己的仓库作为自己的项目（注意这时自己仓库中的项目是与原项目独立的两个项目）；2.git clone到本地；3.创建branch，修改本地项目，并push到创建的branch；4.在github上create pull request（注意上方教程直接create pull request到原仓库的原项目，实际上自己仓库中fork过来的项目没有改变，这时可以再create pull request到自己仓库的项目，一般建议创建branch修改再create pull request，这样能保持自己仓库中的项目定制化的配置。）</p>
+<p>总结：当我们使用github上的开源项目发现有bug而自己又能修复时，需要：1.先把原始仓库fork到个人远程仓库（注意这时个人远程仓库与原始仓库是独立的两个仓库）；2.git clone到本地；3.创建pull request branch，修改并push到远程仓库pull request branch；4.在github上create pull request（注意上方教程直接create pull request到原始仓库，实际上个人远程仓库中没有改变，这时可以再create pull request到个人远程仓库，一般建议创建pull request branch修改再create pull request，这样能保持个人远程仓库定制化的配置。）</p>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://www.cnblogs.com/zhangjianbin/p/7774073.html" target="_blank" rel="noopener">创建 Pull Request</a></p>
 <p><a href="https://blog.csdn.net/wangzi11111111/article/details/79861056" target="_blank" rel="noopener">如何使用github中的pull request功能？</a></p>
 
@@ -206,21 +207,21 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Goal"><span class="toc-number">1.</span> <span class="toc-text">Goal</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Guide"><span class="toc-number">2.</span> <span class="toc-text">Guide</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#fork-origin-repository"><span class="toc-number">2.1.</span> <span class="toc-text">fork origin repository</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#checkout-a-branch-amp-modify"><span class="toc-number">2.2.</span> <span class="toc-text">checkout a branch &amp; modify</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#create-a-pull-request"><span class="toc-number">2.3.</span> <span class="toc-text">create a pull request</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#complete-amp-wait-for-merger"><span class="toc-number">2.4.</span> <span class="toc-text">complete &amp; wait for merger</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">3.</span> <span class="toc-text">Reference</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Goal"><span class="toc-number">1.</span> <span class="toc-text">Goal</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Guide"><span class="toc-number">2.</span> <span class="toc-text">Guide</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#fork-original-repository"><span class="toc-number">2.1.</span> <span class="toc-text">fork original repository</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#checkout-a-branch-amp-modify"><span class="toc-number">2.2.</span> <span class="toc-text">checkout a branch &amp; modify</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#create-a-pull-request"><span class="toc-number">2.3.</span> <span class="toc-text">create a pull request</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#complete-amp-wait-for-merger"><span class="toc-number">2.4.</span> <span class="toc-text">complete &amp; wait for merger</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">3.</span> <span class="toc-text">Reference</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
       <ul>
   <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/02/16/0004-git-pull-request/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/02/16/0004-git-pull-request/&text=【git】first pull request"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/02/16/0004-git-pull-request/&title=【git】first pull request"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/02/16/0004-git-pull-request/&is_video=false&description=【git】first pull request"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=【git】first pull request&body=Check out this article: http://yoursite.com/2019/02/16/0004-git-pull-request/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/02/16/0004-git-pull-request/&title=【git】first pull request"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/02/16/0004-git-pull-request/&title=【git】first pull request"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/02/16/0004-git-pull-request/&title=【git】first pull request"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/02/16/0004-git-pull-request/&title=【git】first pull request"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/02/16/0004-git-pull-request/&name=【git】first pull request&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/02/16/0004-git-pull-request/&text=【git】first pull request(already merged)"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/02/16/0004-git-pull-request/&title=【git】first pull request(already merged)"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/02/16/0004-git-pull-request/&is_video=false&description=【git】first pull request(already merged)"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=【git】first pull request(already merged)&body=Check out this article: http://yoursite.com/2019/02/16/0004-git-pull-request/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/02/16/0004-git-pull-request/&title=【git】first pull request(already merged)"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/02/16/0004-git-pull-request/&title=【git】first pull request(already merged)"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/02/16/0004-git-pull-request/&title=【git】first pull request(already merged)"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/02/16/0004-git-pull-request/&title=【git】first pull request(already merged)"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/02/16/0004-git-pull-request/&name=【git】first pull request(already merged)&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
