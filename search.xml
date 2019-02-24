@@ -4,6 +4,27 @@
   
     
     <entry>
+      <title>【Elasticsearch】install ik plugin</title>
+      <link href="/2019/02/19/0006-es-ik-install/"/>
+      <url>/2019/02/19/0006-es-ik-install/</url>
+      
+        <content type="html"><![CDATA[<p>ik是大名鼎鼎的中文分词器插件，支持<code>ik_smart</code>(最粗粒度拆分)和<code>ik_max_word</code>(最细粒度拆分)两种分词器，支持扩展分词字典&amp;停止词字典，支持远程扩展字典&amp;停止词字典，支持热更新分词字典（由于Elasticsearch是通过docker-compose安装的，所以考虑通过解压zip文件安装）</p><h2 id="Environment-amp-Tools"><a href="#Environment-amp-Tools" class="headerlink" title="Environment &amp; Tools"></a>Environment &amp; Tools</h2><p>centos7, Elasticsearch 6.6.0, ik v6.6.0, </p><h2 id="Guide"><a href="#Guide" class="headerlink" title="Guide"></a>Guide</h2><h3 id="add-volumes-mapping"><a href="#add-volumes-mapping" class="headerlink" title="add volumes mapping"></a>add volumes mapping</h3><p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g0hhbq34ubj30fy0p0gmb.jpg" alt="2019.02.19 - 01 - 01"></p><h3 id="download-package-amp-restart"><a href="#download-package-amp-restart" class="headerlink" title="download package &amp; restart"></a>download package &amp; restart</h3><p>进入本地插件目录：<code>cd esplugins/</code></p><p>创建ik目录：<code>mkdir ik</code></p><p>进入ik目录：<code>cd ik/</code></p><p>PS: 从<a href="https://github.com/medcl/elasticsearch-analysis-ik/releases" target="_blank" rel="noopener">ik release</a>选择与es对应的版本，右键获取下载链接（我这里使用<a href="https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.6.0/elasticsearch-analysis-ik-6.6.0.zip" target="_blank" rel="noopener">v6.6.0</a>）</p><p>下载ik插件：<code>wget https://github.com/medcl/elasticsearch-analysis-ik/archive/v6.6.0.tar.gz</code></p><p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g0hhd55eo2j30la0abgm7.jpg" alt="2019.02.19 - 01 - 02"></p><p>上面下载错了source code，再来：<code>wget https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.6.0/elasticsearch-analysis-ik-6.6.0.zip</code></p><p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g0hhdzn0gtj30li0dxdh2.jpg" alt="2019.02.19 - 01 - 03"></p><p>解压：<code>unzip elasticsearch-analysis-ik-6.6.0.zip</code></p><p>回到docker-compose.yml文件所在目录，启动es集群：<code>docker-compose up</code></p><p>访问9200端口验证es启动成功：<code>http://{ip}:9200</code></p><p>访问5601端口验证kibana启动成功：<code>http://{ip}:5601</code></p><h3 id="run-some-test"><a href="#run-some-test" class="headerlink" title="run some test"></a>run some test</h3><p>在kibana中运行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">GET index/_analyze</span><br><span class="line">&#123;</span><br><span class="line">  &quot;text&quot;: &quot;中华人民共和国国歌&quot;,</span><br><span class="line">  &quot;tokenizer&quot;: &quot;ik_smart&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g0hhg4u3bij30sl0i4jsp.jpg" alt="2019.02.19 - 01 - 04"></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">GET index/_analyze</span><br><span class="line">&#123;</span><br><span class="line">  &quot;text&quot;: &quot;中华人民共和国国歌&quot;,</span><br><span class="line">  &quot;tokenizer&quot;: &quot;ik_max_word&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g0hhgbgoy2j30u40i8abl.jpg" alt="2019.02.19 - 01 - 05"></p><p>more：<a href="https://github.com/medcl/elasticsearch-analysis-ik#quick-example" target="_blank" rel="noopener">Quick Example</a></p><p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g0hhfeq0iyj31120p0go1.jpg" alt="2019.02.19 - 01 - 06"></p><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://github.com/medcl/elasticsearch-analysis-ik" target="_blank" rel="noopener">IK Analysis for Elasticsearch</a></p><p><a href="https://www.jianshu.com/p/85665ae5d660" target="_blank" rel="noopener">docker 中安裝elasticsearch和ik安裝配置</a></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Elasticsearch </tag>
+            
+            <tag> ik </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【git】synchronize fork project</title>
       <link href="/2019/02/17/0005-git-fork-update/"/>
       <url>/2019/02/17/0005-git-fork-update/</url>
@@ -52,13 +73,13 @@
       
         <tags>
             
-            <tag> Elasticsearch </tag>
-            
             <tag> linode </tag>
             
             <tag> centos7 </tag>
             
             <tag> docker-compose </tag>
+            
+            <tag> Elasticsearch </tag>
             
         </tags>
       
@@ -77,9 +98,9 @@
       
         <tags>
             
-            <tag> git </tag>
-            
             <tag> Elasticsearch </tag>
+            
+            <tag> git </tag>
             
         </tags>
       

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="ik是大名鼎鼎的中文分词器插件，支持ik_smart(最粗粒度拆分)和ik_max_word(最细粒度拆分)两种分词器，支持扩展分词字典&amp;amp;停止词字典，支持远程扩展字典&amp;amp;停止词字典，支持热更新分词字典（由于Elasticsearch是通过docker-compose安装的，所以考虑通过解压zip文件安装） Environment &amp;amp; Toolscentos7, Elastic">
+<meta name="keywords" content="Elasticsearch,ik">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Elasticsearch】install ik plugin">
+<meta property="og:url" content="http://yoursite.com/2019/02/19/0006-es-ik-install/index.html">
+<meta property="og:site_name" content="DevLog">
+<meta property="og:description" content="ik是大名鼎鼎的中文分词器插件，支持ik_smart(最粗粒度拆分)和ik_max_word(最细粒度拆分)两种分词器，支持扩展分词字典&amp;amp;停止词字典，支持远程扩展字典&amp;amp;停止词字典，支持热更新分词字典（由于Elasticsearch是通过docker-compose安装的，所以考虑通过解压zip文件安装） Environment &amp;amp; Toolscentos7, Elastic">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tKfTcgy1g0hhbq34ubj30fy0p0gmb.jpg">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tKfTcgy1g0hhd55eo2j30la0abgm7.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcgy1g0hhdzn0gtj30li0dxdh2.jpg">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tKfTcgy1g0hhg4u3bij30sl0i4jsp.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcgy1g0hhgbgoy2j30u40i8abl.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcgy1g0hhfeq0iyj31120p0go1.jpg">
+<meta property="og:updated_time" content="2019-02-24T06:11:18.197Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【Elasticsearch】install ik plugin">
+<meta name="twitter:description" content="ik是大名鼎鼎的中文分词器插件，支持ik_smart(最粗粒度拆分)和ik_max_word(最细粒度拆分)两种分词器，支持扩展分词字典&amp;amp;停止词字典，支持远程扩展字典&amp;amp;停止词字典，支持热更新分词字典（由于Elasticsearch是通过docker-compose安装的，所以考虑通过解压zip文件安装） Environment &amp;amp; Toolscentos7, Elastic">
+<meta name="twitter:image" content="https://ws4.sinaimg.cn/large/006tKfTcgy1g0hhbq34ubj30fy0p0gmb.jpg">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>【Elasticsearch】install ik plugin</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </span>
+    <br>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2019/02/17/0005-git-fork-update/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/02/19/0006-es-ik-install/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/02/19/0006-es-ik-install/&text=【Elasticsearch】install ik plugin"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/02/19/0006-es-ik-install/&title=【Elasticsearch】install ik plugin"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/02/19/0006-es-ik-install/&is_video=false&description=【Elasticsearch】install ik plugin"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=【Elasticsearch】install ik plugin&body=Check out this article: http://yoursite.com/2019/02/19/0006-es-ik-install/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/02/19/0006-es-ik-install/&title=【Elasticsearch】install ik plugin"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/02/19/0006-es-ik-install/&title=【Elasticsearch】install ik plugin"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/02/19/0006-es-ik-install/&title=【Elasticsearch】install ik plugin"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/02/19/0006-es-ik-install/&title=【Elasticsearch】install ik plugin"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/02/19/0006-es-ik-install/&name=【Elasticsearch】install ik plugin&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Environment-amp-Tools"><span class="toc-number">1.</span> <span class="toc-text">Environment &amp; Tools</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Guide"><span class="toc-number">2.</span> <span class="toc-text">Guide</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#add-volumes-mapping"><span class="toc-number">2.1.</span> <span class="toc-text">add volumes mapping</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#download-package-amp-restart"><span class="toc-number">2.2.</span> <span class="toc-text">download package &amp; restart</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#run-some-test"><span class="toc-number">2.3.</span> <span class="toc-text">run some test</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">3.</span> <span class="toc-text">Reference</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope="" itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        【Elasticsearch】install ik plugin
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="name">DevLog</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2019-02-19T05:58:49.000Z" itemprop="datePublished">2019-02-19</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/Elasticsearch/">Elasticsearch</a>, <a class="tag-link" href="/tags/ik/">ik</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>ik是大名鼎鼎的中文分词器插件，支持<code>ik_smart</code>(最粗粒度拆分)和<code>ik_max_word</code>(最细粒度拆分)两种分词器，支持扩展分词字典&amp;停止词字典，支持远程扩展字典&amp;停止词字典，支持热更新分词字典（由于Elasticsearch是通过docker-compose安装的，所以考虑通过解压zip文件安装）</p>
+<h2 id="Environment-amp-Tools"><a href="#Environment-amp-Tools" class="headerlink" title="Environment &amp; Tools"></a>Environment &amp; Tools</h2><p>centos7, Elasticsearch 6.6.0, ik v6.6.0, </p>
+<h2 id="Guide"><a href="#Guide" class="headerlink" title="Guide"></a>Guide</h2><h3 id="add-volumes-mapping"><a href="#add-volumes-mapping" class="headerlink" title="add volumes mapping"></a>add volumes mapping</h3><p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g0hhbq34ubj30fy0p0gmb.jpg" alt="2019.02.19 - 01 - 01"></p>
+<h3 id="download-package-amp-restart"><a href="#download-package-amp-restart" class="headerlink" title="download package &amp; restart"></a>download package &amp; restart</h3><p>进入本地插件目录：<code>cd esplugins/</code></p>
+<p>创建ik目录：<code>mkdir ik</code></p>
+<p>进入ik目录：<code>cd ik/</code></p>
+<p>PS: 从<a href="https://github.com/medcl/elasticsearch-analysis-ik/releases" target="_blank" rel="noopener">ik release</a>选择与es对应的版本，右键获取下载链接（我这里使用<a href="https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.6.0/elasticsearch-analysis-ik-6.6.0.zip" target="_blank" rel="noopener">v6.6.0</a>）</p>
+<p>下载ik插件：<code>wget https://github.com/medcl/elasticsearch-analysis-ik/archive/v6.6.0.tar.gz</code></p>
+<p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g0hhd55eo2j30la0abgm7.jpg" alt="2019.02.19 - 01 - 02"></p>
+<p>上面下载错了source code，再来：<code>wget https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.6.0/elasticsearch-analysis-ik-6.6.0.zip</code></p>
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g0hhdzn0gtj30li0dxdh2.jpg" alt="2019.02.19 - 01 - 03"></p>
+<p>解压：<code>unzip elasticsearch-analysis-ik-6.6.0.zip</code></p>
+<p>回到docker-compose.yml文件所在目录，启动es集群：<code>docker-compose up</code></p>
+<p>访问9200端口验证es启动成功：<code>http://{ip}:9200</code></p>
+<p>访问5601端口验证kibana启动成功：<code>http://{ip}:5601</code></p>
+<h3 id="run-some-test"><a href="#run-some-test" class="headerlink" title="run some test"></a>run some test</h3><p>在kibana中运行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">GET index/_analyze</span><br><span class="line">&#123;</span><br><span class="line">  &quot;text&quot;: &quot;中华人民共和国国歌&quot;,</span><br><span class="line">  &quot;tokenizer&quot;: &quot;ik_smart&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g0hhg4u3bij30sl0i4jsp.jpg" alt="2019.02.19 - 01 - 04"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">GET index/_analyze</span><br><span class="line">&#123;</span><br><span class="line">  &quot;text&quot;: &quot;中华人民共和国国歌&quot;,</span><br><span class="line">  &quot;tokenizer&quot;: &quot;ik_max_word&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g0hhgbgoy2j30u40i8abl.jpg" alt="2019.02.19 - 01 - 05"></p>
+<p>more：<a href="https://github.com/medcl/elasticsearch-analysis-ik#quick-example" target="_blank" rel="noopener">Quick Example</a></p>
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g0hhfeq0iyj31120p0go1.jpg" alt="2019.02.19 - 01 - 06"></p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://github.com/medcl/elasticsearch-analysis-ik" target="_blank" rel="noopener">IK Analysis for Elasticsearch</a></p>
+<p><a href="https://www.jianshu.com/p/85665ae5d660" target="_blank" rel="noopener">docker 中安裝elasticsearch和ik安裝配置</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Environment-amp-Tools"><span class="toc-number">1.</span> <span class="toc-text">Environment &amp; Tools</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Guide"><span class="toc-number">2.</span> <span class="toc-text">Guide</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#add-volumes-mapping"><span class="toc-number">2.1.</span> <span class="toc-text">add volumes mapping</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#download-package-amp-restart"><span class="toc-number">2.2.</span> <span class="toc-text">download package &amp; restart</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#run-some-test"><span class="toc-number">2.3.</span> <span class="toc-text">run some test</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">3.</span> <span class="toc-text">Reference</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/02/19/0006-es-ik-install/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/02/19/0006-es-ik-install/&text=【Elasticsearch】install ik plugin"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/02/19/0006-es-ik-install/&title=【Elasticsearch】install ik plugin"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/02/19/0006-es-ik-install/&is_video=false&description=【Elasticsearch】install ik plugin"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=【Elasticsearch】install ik plugin&body=Check out this article: http://yoursite.com/2019/02/19/0006-es-ik-install/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/02/19/0006-es-ik-install/&title=【Elasticsearch】install ik plugin"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/02/19/0006-es-ik-install/&title=【Elasticsearch】install ik plugin"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/02/19/0006-es-ik-install/&title=【Elasticsearch】install ik plugin"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/02/19/0006-es-ik-install/&title=【Elasticsearch】install ik plugin"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/02/19/0006-es-ik-install/&name=【Elasticsearch】install ik plugin&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 Tony Chen
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+    <!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
