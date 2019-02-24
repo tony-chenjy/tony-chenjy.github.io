@@ -4,7 +4,7 @@
   
     
     <entry>
-      <title>【Elasticsearch】install ik plugin</title>
+      <title>【Elasticsearch】install ik analysis plugin</title>
       <link href="/2019/02/19/0006-es-ik-install/"/>
       <url>/2019/02/19/0006-es-ik-install/</url>
       
@@ -73,13 +73,13 @@
       
         <tags>
             
+            <tag> Elasticsearch </tag>
+            
             <tag> linode </tag>
             
             <tag> centos7 </tag>
             
             <tag> docker-compose </tag>
-            
-            <tag> Elasticsearch </tag>
             
         </tags>
       
@@ -98,9 +98,9 @@
       
         <tags>
             
-            <tag> Elasticsearch </tag>
-            
             <tag> git </tag>
+            
+            <tag> Elasticsearch </tag>
             
         </tags>
       
