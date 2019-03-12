@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="EnvironmentHadoop 2.7.2, docker Description使用docker创建三个hadoop容器搭建伪分布式集群，在hadoop上面跑job，一段时间后会出现user为dr.who的无意义的job一直UNDEFINED，占用yarn资源，导致一些job没办法执行。  而dr.who则是某种默认用户  所以需要修改配置，在core-site.xml添加： 1234&amp;lt">
+<meta name="keywords" content="Hadoop,dr.who">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Hadoop】dr.who hadoop YARN">
+<meta property="og:url" content="http://yoursite.com/2019/03/02/0007-hadoop-dr-who/index.html">
+<meta property="og:site_name" content="DevLog">
+<meta property="og:description" content="EnvironmentHadoop 2.7.2, docker Description使用docker创建三个hadoop容器搭建伪分布式集群，在hadoop上面跑job，一段时间后会出现user为dr.who的无意义的job一直UNDEFINED，占用yarn资源，导致一些job没办法执行。  而dr.who则是某种默认用户  所以需要修改配置，在core-site.xml添加： 1234&amp;lt">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcgy1g0owg1qlymj31h80u0k1d.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tKfTcgy1g0owlu3pvzj327002e75c.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcgy1g0owmjotnsj30vm0j0qg5.jpg">
+<meta property="og:updated_time" content="2019-03-12T14:17:00.553Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【Hadoop】dr.who hadoop YARN">
+<meta name="twitter:description" content="EnvironmentHadoop 2.7.2, docker Description使用docker创建三个hadoop容器搭建伪分布式集群，在hadoop上面跑job，一段时间后会出现user为dr.who的无意义的job一直UNDEFINED，占用yarn资源，导致一些job没办法执行。  而dr.who则是某种默认用户  所以需要修改配置，在core-site.xml添加： 1234&amp;lt">
+<meta name="twitter:image" content="https://ws3.sinaimg.cn/large/006tKfTcgy1g0owg1qlymj31h80u0k1d.jpg">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>【Hadoop】dr.who hadoop YARN</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </span>
+    <br>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2019/03/12/0008-rdp-on-linux/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2019/02/19/0006-es-ik-install/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/03/02/0007-hadoop-dr-who/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/03/02/0007-hadoop-dr-who/&text=【Hadoop】dr.who hadoop YARN"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/03/02/0007-hadoop-dr-who/&title=【Hadoop】dr.who hadoop YARN"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/03/02/0007-hadoop-dr-who/&is_video=false&description=【Hadoop】dr.who hadoop YARN"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=【Hadoop】dr.who hadoop YARN&body=Check out this article: http://yoursite.com/2019/03/02/0007-hadoop-dr-who/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/03/02/0007-hadoop-dr-who/&title=【Hadoop】dr.who hadoop YARN"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/03/02/0007-hadoop-dr-who/&title=【Hadoop】dr.who hadoop YARN"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/03/02/0007-hadoop-dr-who/&title=【Hadoop】dr.who hadoop YARN"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/03/02/0007-hadoop-dr-who/&title=【Hadoop】dr.who hadoop YARN"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/03/02/0007-hadoop-dr-who/&name=【Hadoop】dr.who hadoop YARN&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Environment"><span class="toc-number">1.</span> <span class="toc-text">Environment</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Description"><span class="toc-number">2.</span> <span class="toc-text">Description</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">3.</span> <span class="toc-text">Reference</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope="" itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        【Hadoop】dr.who hadoop YARN
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="name">DevLog</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2019-03-02T15:48:19.000Z" itemprop="datePublished">2019-03-02</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/Hadoop/">Hadoop</a>, <a class="tag-link" href="/tags/dr-who/">dr.who</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="Environment"><a href="#Environment" class="headerlink" title="Environment"></a>Environment</h2><p>Hadoop 2.7.2, docker</p>
+<h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p>使用docker创建三个hadoop容器搭建伪分布式集群，在hadoop上面跑job，一段时间后会出现user为dr.who的无意义的job一直UNDEFINED，占用yarn资源，导致一些job没办法执行。</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g0owg1qlymj31h80u0k1d.jpg" alt="屏幕快照 2019-03-02 23.36.27"></p>
+<p>而dr.who则是某种默认用户</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1g0owlu3pvzj327002e75c.jpg" alt="屏幕快照 2019-03-03 00.09.37"></p>
+<p>所以需要修改配置，在core-site.xml添加：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.http.staticuser.user<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>yarn<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g0owmjotnsj30vm0j0qg5.jpg" alt="屏幕快照 2019-03-02 23.39.20"></p>
+<p>2019.03.12更新：</p>
+<p>之后又出现了user为yarn的无意义job，通过top命令查看，占用内存超过100%</p>
+<p>通过<code>ps -ef | grep java</code>查看，出现<code>/var/tmp/java -c /var/tmp/w.conf</code>，通过<code>crontab -l</code>查看有个定时任务，估计是中了病毒，然后：</p>
+<p>1.通过<code>kill -9 {pid}</code>关闭进程</p>
+<p>2.通过<code>crontab -r</code>移除定时任务</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://blog.csdn.net/sin_geek/article/details/84058243" target="_blank" rel="noopener">Hadoop dr.who问题</a></p>
+<p>其他关于virus attack的解决办法：</p>
+<p><a href="https://community.hortonworks.com/questions/191672/yarn-application-undefined-created-by-drwho.html#answer-form" target="_blank" rel="noopener">Yarn application undefined created by dr.who</a></p>
+<p>2019.03.12 更新：</p>
+<p><a href="https://zhangnew.com/hadoop-yarn-safe.html" target="_blank" rel="noopener">Hadoop Yarn 未授权访问导致被攻击</a></p>
+<p><a href="https://www.jianshu.com/p/90c12c366d79" target="_blank" rel="noopener">Hadoop 权限认证</a></p>
+<p><a href="https://cloud.tencent.com/developer/ask/128776" target="_blank" rel="noopener">这似乎是yarn被木马感染，即使我重新安装我的电脑？</a></p>
+<p><a href="https://www.cnblogs.com/kxdblog/p/4211940.html" target="_blank" rel="noopener">Centos定时启动和清除任务</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Environment"><span class="toc-number">1.</span> <span class="toc-text">Environment</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Description"><span class="toc-number">2.</span> <span class="toc-text">Description</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">3.</span> <span class="toc-text">Reference</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/03/02/0007-hadoop-dr-who/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/03/02/0007-hadoop-dr-who/&text=【Hadoop】dr.who hadoop YARN"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/03/02/0007-hadoop-dr-who/&title=【Hadoop】dr.who hadoop YARN"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/03/02/0007-hadoop-dr-who/&is_video=false&description=【Hadoop】dr.who hadoop YARN"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=【Hadoop】dr.who hadoop YARN&body=Check out this article: http://yoursite.com/2019/03/02/0007-hadoop-dr-who/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/03/02/0007-hadoop-dr-who/&title=【Hadoop】dr.who hadoop YARN"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/03/02/0007-hadoop-dr-who/&title=【Hadoop】dr.who hadoop YARN"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/03/02/0007-hadoop-dr-who/&title=【Hadoop】dr.who hadoop YARN"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/03/02/0007-hadoop-dr-who/&title=【Hadoop】dr.who hadoop YARN"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/03/02/0007-hadoop-dr-who/&name=【Hadoop】dr.who hadoop YARN&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 Tony Chen
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+    <!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

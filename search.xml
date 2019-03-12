@@ -4,6 +4,46 @@
   
     
     <entry>
+      <title>【RDP】deploy RDP report server on linux</title>
+      <link href="/2019/03/12/0008-rdp-on-linux/"/>
+      <url>/2019/03/12/0008-rdp-on-linux/</url>
+      
+        <content type="html"><![CDATA[<h2 id="Environment-amp-Tools"><a href="#Environment-amp-Tools" class="headerlink" title="Environment &amp; Tools"></a>Environment &amp; Tools</h2><p>CentOS 7, open-jdk 1.8.0_201, tomcat 8.5.38, mysql 5.5.62, RDP报表工具v2.3.8, </p><h2 id="Guide"><a href="#Guide" class="headerlink" title="Guide"></a>Guide</h2><h3 id="check-and-start-mysqld-service"><a href="#check-and-start-mysqld-service" class="headerlink" title="check and start mysqld service"></a>check and start mysqld service</h3><p>查看mysql状态并启动：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">service mysqld status</span><br><span class="line">service mysqld start</span><br><span class="line">mysql -uroot -p</span><br><span class="line">select version();</span><br></pre></td></tr></table></figure></p><p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g10c3f97ezj30g1094mxb.jpg" alt="2019.03.12 - 01 - 001"></p><p>创建并导入数据库（注意自身数据库的编码方式）：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">create database rdp_server;</span><br><span class="line">use rdp_server;</span><br><span class="line">set names utf8;</span><br><span class="line">source ~/resources/rdp_server.sql;</span><br><span class="line">show tables;</span><br></pre></td></tr></table></figure><blockquote><p>rdp_server.sql文件是从官网下载的windows版本免安装数据库中dump出来的structure and data.</p></blockquote><p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g10c4geaicj30an0d1t8x.jpg" alt="2019.03.12 - 01 - 002"></p><p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g10c4pr8ydj307u0e8gln.jpg" alt="2019.03.12 - 01 - 003"></p><h3 id="download"><a href="#download" class="headerlink" title="download"></a>download</h3><p>从官网下载：<a href="http://product.mftcc.cn/rdp/download.html" target="_blank" rel="noopener">RDP 报表工具</a></p><p>因为要登录，所以只能通过浏览器下载。</p><h3 id="unzip"><a href="#unzip" class="headerlink" title="unzip"></a>unzip</h3><p>解压：<code>unzip BDDPx64.zip</code></p><blockquote><p><code>-q</code> 执行时不显示任何信息</p></blockquote><p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g10c5thcsij30au02wq2s.jpg" alt="2019.03.12 - 01 - 004"></p><h3 id="modify-configurations"><a href="#modify-configurations" class="headerlink" title="modify configurations"></a>modify configurations</h3><p>进入配置目录</p><p><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1g10c66jry8j30ij03k3yi.jpg" alt="2019.03.12 - 01 - 005"></p><p>修改log4j配置：log4j.properties</p><p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g10c6f5bx6j30iw0egq3o.jpg" alt="2019.03.12 - 01 - 006"></p><p>修改数据源配置：application-prod.yml</p><p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1g10c6pffo9j30ha0e4gm1.jpg" alt="2019.03.12 - 01 - 007"></p><h3 id="startup-tomcat"><a href="#startup-tomcat" class="headerlink" title="startup tomcat"></a>startup tomcat</h3><blockquote><p>RDP报表工具在Linux系统上要求运行在自己的tomcat上</p></blockquote><p>将BDDPx64/webapps/RDP-SERVER移到tomcat的webapps目录下</p><p>启动tomcat：<code>bin/startup.sh</code></p><p><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1g10d4mpbqlj30vi0bqk0t.jpg" alt="屏幕快照 2019-03-12 22.04.32"></p><p>登陆管理后台：<code>http://{ip}:8080/RDP-SERVER</code></p><p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g10do3vhsjj31ej0u0b2a.jpg" alt="屏幕快照 2019-03-12 22.25.29"></p><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="http://product.mftcc.cn/rdp/download.html" target="_blank" rel="noopener">RDP 报表工具</a></p><p><a href="https://www.cnblogs.com/walblog/articles/7890442.html" target="_blank" rel="noopener">在Centos中导入sql文件的方法</a></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> RDP report </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>【Hadoop】dr.who hadoop YARN</title>
+      <link href="/2019/03/02/0007-hadoop-dr-who/"/>
+      <url>/2019/03/02/0007-hadoop-dr-who/</url>
+      
+        <content type="html"><![CDATA[<h2 id="Environment"><a href="#Environment" class="headerlink" title="Environment"></a>Environment</h2><p>Hadoop 2.7.2, docker</p><h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p>使用docker创建三个hadoop容器搭建伪分布式集群，在hadoop上面跑job，一段时间后会出现user为dr.who的无意义的job一直UNDEFINED，占用yarn资源，导致一些job没办法执行。</p><p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g0owg1qlymj31h80u0k1d.jpg" alt="屏幕快照 2019-03-02 23.36.27"></p><p>而dr.who则是某种默认用户</p><p><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1g0owlu3pvzj327002e75c.jpg" alt="屏幕快照 2019-03-03 00.09.37"></p><p>所以需要修改配置，在core-site.xml添加：</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.http.staticuser.user<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>yarn<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure><p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g0owmjotnsj30vm0j0qg5.jpg" alt="屏幕快照 2019-03-02 23.39.20"></p><p>2019.03.12更新：</p><p>之后又出现了user为yarn的无意义job，通过top命令查看，占用内存超过100%</p><p>通过<code>ps -ef | grep java</code>查看，出现<code>/var/tmp/java -c /var/tmp/w.conf</code>，通过<code>crontab -l</code>查看有个定时任务，估计是中了病毒，然后：</p><p>1.通过<code>kill -9 {pid}</code>关闭进程</p><p>2.通过<code>crontab -r</code>移除定时任务</p><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://blog.csdn.net/sin_geek/article/details/84058243" target="_blank" rel="noopener">Hadoop dr.who问题</a></p><p>其他关于virus attack的解决办法：</p><p><a href="https://community.hortonworks.com/questions/191672/yarn-application-undefined-created-by-drwho.html#answer-form" target="_blank" rel="noopener">Yarn application undefined created by dr.who</a></p><p>2019.03.12 更新：</p><p><a href="https://zhangnew.com/hadoop-yarn-safe.html" target="_blank" rel="noopener">Hadoop Yarn 未授权访问导致被攻击</a></p><p><a href="https://www.jianshu.com/p/90c12c366d79" target="_blank" rel="noopener">Hadoop 权限认证</a></p><p><a href="https://cloud.tencent.com/developer/ask/128776" target="_blank" rel="noopener">这似乎是yarn被木马感染，即使我重新安装我的电脑？</a></p><p><a href="https://www.cnblogs.com/kxdblog/p/4211940.html" target="_blank" rel="noopener">Centos定时启动和清除任务</a></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Hadoop </tag>
+            
+            <tag> dr.who </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【Elasticsearch】install ik analysis plugin</title>
       <link href="/2019/02/19/0006-es-ik-install/"/>
       <url>/2019/02/19/0006-es-ik-install/</url>
@@ -73,13 +113,13 @@
       
         <tags>
             
-            <tag> Elasticsearch </tag>
-            
             <tag> linode </tag>
             
             <tag> centos7 </tag>
             
             <tag> docker-compose </tag>
+            
+            <tag> Elasticsearch </tag>
             
         </tags>
       
@@ -98,9 +138,9 @@
       
         <tags>
             
-            <tag> git </tag>
-            
             <tag> Elasticsearch </tag>
+            
+            <tag> git </tag>
             
         </tags>
       
