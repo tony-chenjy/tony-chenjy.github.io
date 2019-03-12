@@ -113,13 +113,13 @@
       
         <tags>
             
+            <tag> Elasticsearch </tag>
+            
             <tag> linode </tag>
             
             <tag> centos7 </tag>
             
             <tag> docker-compose </tag>
-            
-            <tag> Elasticsearch </tag>
             
         </tags>
       
@@ -138,9 +138,9 @@
       
         <tags>
             
-            <tag> Elasticsearch </tag>
-            
             <tag> git </tag>
+            
+            <tag> Elasticsearch </tag>
             
         </tags>
       
