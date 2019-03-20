@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Description面试题：来给我说一下Spring MVC的执行过程？ After reading the passage above, I feel more confused about how SpringMVC runs, what HandlerMapping is, what differences between HandlerMapping and HandlerAdapter">
+<meta name="keywords" content="SpringMVC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【SpringMVC】SpringMVC Source Code - Running Process">
+<meta property="og:url" content="http://yoursite.com/2019/03/20/0009-springmvc-source-code/index.html">
+<meta property="og:site_name" content="DevLog">
+<meta property="og:description" content="Description面试题：来给我说一下Spring MVC的执行过程？ After reading the passage above, I feel more confused about how SpringMVC runs, what HandlerMapping is, what differences between HandlerMapping and HandlerAdapter">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tKfTcgy1g19mfjqcd0j30bx08qdfv.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tKfTcgy1g19mfywexij30ys0eswfa.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tKfTcgy1g19mh7vdt8j30ex06mmx4.jpg">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tKfTcgy1g19mi6l2mhj30dh0jbq3h.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tKfTcgy1g19mhz34mmj309101ujr6.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcgy1g19mkyu1sqj30za0kxwhg.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tKfTcgy1g19mkir0j8j311a0dugng.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcgy1g19mmelg9mj30f308haac.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcgy1g19mmkfn3jj31dc0lwdji.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tKfTcgy1g19mm6r480j31250ggwgr.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tKfTcgy1g19mnv9vuej31890kb0w5.jpg">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tKfTcgy1g19mo564buj312i0m541g.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tKfTcgy1g19moofxd6j310a0k9417.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcgy1g19mq3cfrhj313w0iago4.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tKfTcgy1g19mqct3xxj314f0iumzx.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tKfTcgy1g19mqrap7oj314c0pfjve.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tKfTcgy1g19mr3uy7xj313l0njdjj.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tKfTcgy1g19mrb982oj31090pcn16.jpg">
+<meta property="og:updated_time" content="2019-03-20T14:31:24.591Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【SpringMVC】SpringMVC Source Code - Running Process">
+<meta name="twitter:description" content="Description面试题：来给我说一下Spring MVC的执行过程？ After reading the passage above, I feel more confused about how SpringMVC runs, what HandlerMapping is, what differences between HandlerMapping and HandlerAdapter">
+<meta name="twitter:image" content="https://ws2.sinaimg.cn/large/006tKfTcgy1g19mfjqcd0j30bx08qdfv.jpg">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>【SpringMVC】SpringMVC Source Code - Running Process</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </span>
+    <br>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2019/03/12/0008-rdp-on-linux/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/03/20/0009-springmvc-source-code/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/03/20/0009-springmvc-source-code/&text=【SpringMVC】SpringMVC Source Code - Running Process"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/03/20/0009-springmvc-source-code/&title=【SpringMVC】SpringMVC Source Code - Running Process"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/03/20/0009-springmvc-source-code/&is_video=false&description=【SpringMVC】SpringMVC Source Code - Running Process"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=【SpringMVC】SpringMVC Source Code - Running Process&body=Check out this article: http://yoursite.com/2019/03/20/0009-springmvc-source-code/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/03/20/0009-springmvc-source-code/&title=【SpringMVC】SpringMVC Source Code - Running Process"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/03/20/0009-springmvc-source-code/&title=【SpringMVC】SpringMVC Source Code - Running Process"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/03/20/0009-springmvc-source-code/&title=【SpringMVC】SpringMVC Source Code - Running Process"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/03/20/0009-springmvc-source-code/&title=【SpringMVC】SpringMVC Source Code - Running Process"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/03/20/0009-springmvc-source-code/&name=【SpringMVC】SpringMVC Source Code - Running Process&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Description"><span class="toc-number">1.</span> <span class="toc-text">Description</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Environment-amp-Tools"><span class="toc-number">2.</span> <span class="toc-text">Environment &amp; Tools</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Guide"><span class="toc-number">3.</span> <span class="toc-text">Guide</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#build-a-SpringMVC-project"><span class="toc-number">3.1.</span> <span class="toc-text">build a SpringMVC project</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#source-code-reading-in-debug-mode"><span class="toc-number">3.2.</span> <span class="toc-text">source code reading in debug mode</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#DispatcherServlet"><span class="toc-number">3.2.1.</span> <span class="toc-text">DispatcherServlet</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HandlerMapping"><span class="toc-number">3.2.2.</span> <span class="toc-text">HandlerMapping</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HandlerAdapter"><span class="toc-number">3.2.3.</span> <span class="toc-text">HandlerAdapter</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ViewResolver"><span class="toc-number">3.2.4.</span> <span class="toc-text">ViewResolver</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Summary"><span class="toc-number">3.3.</span> <span class="toc-text">Summary</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">4.</span> <span class="toc-text">Reference</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Q-amp-A"><span class="toc-number">5.</span> <span class="toc-text">Q &amp; A</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope="" itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        【SpringMVC】SpringMVC Source Code - Running Process
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="name">DevLog</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2019-03-20T14:11:18.000Z" itemprop="datePublished">2019-03-20</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/SpringMVC/">SpringMVC</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p><a href="https://mp.weixin.qq.com/s?__biz=MzIzMzgxOTQ5NA==&amp;mid=2247486990&amp;idx=1&amp;sn=fbebd79e84896f8efea1e905b7297354&amp;chksm=e8fe9207df891b11a47297ee1e06eac9672926a9d4478ac565ac9534706730d8e19141a77918&amp;scene=0&amp;xtrack=1&amp;pass_ticket=lXR%2FK2m%2FVFNS5RWEyu2GLy85AqtjRhIQViLUNikOv2PNaA9YBLCS2cmwLBClm3%2B8#rd" target="_blank" rel="noopener">面试题：来给我说一下Spring MVC的执行过程？</a></p>
+<p>After reading the passage above, I feel more confused about how SpringMVC runs, what HandlerMapping is, what differences between HandlerMapping and HandlerAdapter, etc. Talk is cheap, so let’s dive into the source code to make it clear.</p>
+<p>In order to understand the running process of SpringMVC through source code reading, we are gonna build a SpringMVC project using IDEA firstly.</p>
+<h2 id="Environment-amp-Tools"><a href="#Environment-amp-Tools" class="headerlink" title="Environment &amp; Tools"></a>Environment &amp; Tools</h2><p>IntelliJ IDEA 2018.3 (Ultimate Edition), JRE: 1.8, maven 3.6, SpringBoot 2.0.5.RELEASE, </p>
+<h2 id="Guide"><a href="#Guide" class="headerlink" title="Guide"></a>Guide</h2><h3 id="build-a-SpringMVC-project"><a href="#build-a-SpringMVC-project" class="headerlink" title="build a SpringMVC project"></a>build a SpringMVC project</h3><p>download the project: <code>git clone https://github.com/spring-guides/gs-serving-web-content.git</code></p>
+<p>open in IDEA: complete is the whole project, while initial is only the framework</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1g19mfjqcd0j30bx08qdfv.jpg" alt="2019.03.20 - 01"></p>
+<p>run the project</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1g19mfywexij30ys0eswfa.jpg" alt="2019.03.20 - 02"></p>
+<p>visit <code>http://localhost:8080/greeting</code> in browser, succeed</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1g19mh7vdt8j30ex06mmx4.jpg" alt="2019.03.20 - 03"></p>
+<h3 id="source-code-reading-in-debug-mode"><a href="#source-code-reading-in-debug-mode" class="headerlink" title="source code reading in debug mode"></a>source code reading in debug mode</h3><p>rerun the project in debug mode</p>
+<p>download the source code and start from <code>DispatcherServlet</code></p>
+<p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g19mi6l2mhj30dh0jbq3h.jpg" alt="2019.03.20 - 04"></p>
+<p>if failed downloading, try <code>mvn dependency:resolve -Dclassifier=sources</code> in terminal</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1g19mhz34mmj309101ujr6.jpg" alt="2019.03.20 - 05"></p>
+<h4 id="DispatcherServlet"><a href="#DispatcherServlet" class="headerlink" title="DispatcherServlet"></a>DispatcherServlet</h4><p>from the comment, we can easily get to know that <code>doDispatch() process the actual dispatching to the handler</code></p>
+<p>so after setting a breakpoint in <code>doDispatch()</code> and visit <code>http://localhost:8080/greeting</code> in the browser, we get to this</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g19mkyu1sqj30za0kxwhg.jpg" alt="2019.03.20 - 06"></p>
+<p>then we skip over to the method <code>getHandler()</code> and skip into it</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1g19mkir0j8j311a0dugng.jpg" alt="2019.03.20 - 07"></p>
+<h4 id="HandlerMapping"><a href="#HandlerMapping" class="headerlink" title="HandlerMapping"></a>HandlerMapping</h4><p>it iterates the list of <code>HandlerMapping</code> and get a handler in type of <code>HandlerExecutionChain</code></p>
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g19mmelg9mj30f308haac.jpg" alt="2019.03.20 - 08"></p>
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g19mmkfn3jj31dc0lwdji.jpg" alt="2019.03.20 - 09"></p>
+<p>then we come to <code>getHandlerAdapter()</code></p>
+<p><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1g19mm6r480j31250ggwgr.jpg" alt="2019.03.20 - 10"></p>
+<h4 id="HandlerAdapter"><a href="#HandlerAdapter" class="headerlink" title="HandlerAdapter"></a>HandlerAdapter</h4><p>again, it iterates the list of <code>HandlerAdapter</code> and get a <code>HandlerAdapter</code></p>
+<p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1g19mnv9vuej31890kb0w5.jpg" alt="2019.03.20 - 11"></p>
+<p>run some preHandle with <code>interceptors.preHandle()</code></p>
+<p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g19mo564buj312i0m541g.jpg" alt="2019.03.20 - 12"></p>
+<p>invoke the handler through <code>HandlerAdapter</code>, and get <code>ModelAndView</code></p>
+<p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1g19moofxd6j310a0k9417.jpg" alt="2019.03.20 - 13"></p>
+<p>run some postHandle with <code>interceptors.postHandle()</code></p>
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g19mq3cfrhj313w0iago4.jpg" alt="2019.03.20 - 14"></p>
+<p>then we come to <code>processDispatchResult()</code></p>
+<p><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1g19mqct3xxj314f0iumzx.jpg" alt="2019.03.20 - 15"></p>
+<p><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1g19mqrap7oj314c0pfjve.jpg" alt="2019.03.20 - 16"></p>
+<p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1g19mr3uy7xj313l0njdjj.jpg" alt="2019.03.20 - 17"></p>
+<h4 id="ViewResolver"><a href="#ViewResolver" class="headerlink" title="ViewResolver"></a>ViewResolver</h4><p>it iterates the list of <code>ViewResolver</code> and get a view</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1g19mrb982oj31090pcn16.jpg" alt="2019.03.20 - 18"></p>
+<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><p>In conclusion, when we post a request, it will be intercepted and handled by <code>DispatcherServlet</code> in doDispatch() method. Then it iterates <code>List&lt;HandlerMapping&gt; handlerMappings</code> to get <code>HandlerExecutionChain handler</code>, which is where the controller belongs to. Then it iterates <code>List&lt;HandlerAdapter&gt; handlerAdapters</code> to get <code>HandlerAdapter ha</code>, which is used to execute the controller we define. Then run <code>HandlerInterceptor[] interceptors.preHandle()</code>, execute <code>HandlerExecutionChain handler</code> through <code>HandlerAdapter ha</code> and get <code>ModelAndView mv</code>, run <code>HandlerInterceptor[] interceptors.postHandle()</code>. Finally, it iterates <code>List&lt;ViewResolver&gt; viewResolvers</code> to render <code>ModelAndView mv</code>.</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://spring.io/guides/gs/serving-web-content/" target="_blank" rel="noopener">官网-Serving Web Content with Spring MVC</a></p>
+<p><a href="https://www.cnblogs.com/wormday/p/8435617.html" target="_blank" rel="noopener">IDEA建立Spring MVC Hello World 详细入门教程</a></p>
+<p><a href="https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html" target="_blank" rel="noopener">官网-Web on Servlet Stack</a></p>
+<p><a href="https://blog.csdn.net/hotdust/article/details/69524869" target="_blank" rel="noopener">idea 无法下载依赖包的source，使用maven下载source</a></p>
+<h2 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q &amp; A"></a>Q &amp; A</h2><p>Q: What is these: multipart resolver, HandlerMapping, HandlerExecutionChain, HandlerAdapter, ModelAndView?</p>
+<p>Q: Why do we use <code>HandlerAdapter ha</code> to execute <code>HandlerExecutionChain handler</code>? </p>
+<p>A: I guess it relates to the <code>Adapter Design Pattern</code>, and for scalability.</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Description"><span class="toc-number">1.</span> <span class="toc-text">Description</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Environment-amp-Tools"><span class="toc-number">2.</span> <span class="toc-text">Environment &amp; Tools</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Guide"><span class="toc-number">3.</span> <span class="toc-text">Guide</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#build-a-SpringMVC-project"><span class="toc-number">3.1.</span> <span class="toc-text">build a SpringMVC project</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#source-code-reading-in-debug-mode"><span class="toc-number">3.2.</span> <span class="toc-text">source code reading in debug mode</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#DispatcherServlet"><span class="toc-number">3.2.1.</span> <span class="toc-text">DispatcherServlet</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HandlerMapping"><span class="toc-number">3.2.2.</span> <span class="toc-text">HandlerMapping</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HandlerAdapter"><span class="toc-number">3.2.3.</span> <span class="toc-text">HandlerAdapter</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ViewResolver"><span class="toc-number">3.2.4.</span> <span class="toc-text">ViewResolver</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Summary"><span class="toc-number">3.3.</span> <span class="toc-text">Summary</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">4.</span> <span class="toc-text">Reference</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Q-amp-A"><span class="toc-number">5.</span> <span class="toc-text">Q &amp; A</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/03/20/0009-springmvc-source-code/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/03/20/0009-springmvc-source-code/&text=【SpringMVC】SpringMVC Source Code - Running Process"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/03/20/0009-springmvc-source-code/&title=【SpringMVC】SpringMVC Source Code - Running Process"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/03/20/0009-springmvc-source-code/&is_video=false&description=【SpringMVC】SpringMVC Source Code - Running Process"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=【SpringMVC】SpringMVC Source Code - Running Process&body=Check out this article: http://yoursite.com/2019/03/20/0009-springmvc-source-code/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/03/20/0009-springmvc-source-code/&title=【SpringMVC】SpringMVC Source Code - Running Process"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/03/20/0009-springmvc-source-code/&title=【SpringMVC】SpringMVC Source Code - Running Process"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/03/20/0009-springmvc-source-code/&title=【SpringMVC】SpringMVC Source Code - Running Process"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/03/20/0009-springmvc-source-code/&title=【SpringMVC】SpringMVC Source Code - Running Process"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/03/20/0009-springmvc-source-code/&name=【SpringMVC】SpringMVC Source Code - Running Process&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 Tony Chen
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+    <!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
