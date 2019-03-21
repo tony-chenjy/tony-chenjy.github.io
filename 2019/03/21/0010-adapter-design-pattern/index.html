@@ -15,14 +15,14 @@
 <meta property="og:description" content="Description【SpringMVC】SpringMVC Source Code - Running Process In the passage above, we looked into the source code of SpringMVC to review the running process of SpringMVC. Then we posted a question, “">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://ws2.sinaimg.cn/large/006tKfTcgy1g1atywr3wnj30ka0atjuu.jpg">
-<meta property="og:image" content="http://yoursite.com/Users/tony.chenjy/Desktop/2019.03.20%20-%2002.png">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcgy1g1auuqcn6sj312q0jzjul.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/006tKfTcgy1g1au0ptdm5j313r0nn42a.jpg">
-<meta property="og:image" content="http://yoursite.com/Users/tony.chenjy/Desktop/2019.03.21%20-%2004.png">
-<meta property="og:image" content="http://yoursite.com/Users/tony.chenjy/Desktop/2019.03.21%20-%2005.png">
-<meta property="og:image" content="http://yoursite.com/Users/tony.chenjy/Desktop/2019.03.21%20-%2006.png">
-<meta property="og:image" content="http://yoursite.com/Users/tony.chenjy/Desktop/2019.03.21%20-%2007.png">
-<meta property="og:image" content="http://yoursite.com/Users/tony.chenjy/Desktop/2019.03.21%20-%2008.png">
-<meta property="og:updated_time" content="2019-03-21T15:38:12.318Z">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tKfTcgy1g1auubmvyyj30td09d0sr.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tKfTcgy1g1autz5l38j30nq0gft9y.jpg">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tKfTcgy1g1autffwquj30lz0eat9c.jpg">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tKfTcgy1g1ausvi7yhj30lo0bdgm2.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tKfTcgy1g1ausho2rjj30l70do3z4.jpg">
+<meta property="og:updated_time" content="2019-03-21T15:56:25.659Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【SpringMVC】SpringMVC source code - HandlerAdapter &amp; Adapter Design Pattern">
 <meta name="twitter:description" content="Description【SpringMVC】SpringMVC Source Code - Running Process In the passage above, we looked into the source code of SpringMVC to review the running process of SpringMVC. Then we posted a question, “">
@@ -168,20 +168,20 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Target is an abstraction of Adapter, designed to lower coupling </span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Target</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">request</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"普通的请求"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// the real Adapter</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Adapter</span> <span class="keyword">extends</span> <span class="title">Target</span> </span>&#123; </span><br><span class="line">    <span class="keyword">private</span> Adaptee adaptee=<span class="keyword">new</span> Adaptee();</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">request</span><span class="params">()</span> </span>&#123; </span><br><span class="line">        <span class="comment">// when we use Adapter, we are actually using Adaptee</span></span><br><span class="line">        adaptee.specificRequest(); </span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Adaptee which is not suitable to newly situation and needs to be adapted</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Adaptee</span> </span>&#123; </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">specificRequest</span><span class="params">()</span> </span>&#123; </span><br><span class="line">        System.out.println(<span class="string">"特殊的请求"</span>); </span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="HandlerAdapter"><a href="#HandlerAdapter" class="headerlink" title="HandlerAdapter"></a>HandlerAdapter</h3><p>Let’s find out why and how SpringMVC uses Adapter Design Pattern in HandlerAdapter.</p>
 <p>When it iterates <code>List&lt;HandlerAdapter&gt; handlerAdapters</code>, it has 3 handlerAdapters, including <code>RequestMappingHandlerAdapter</code>, <code>HttpRequestHandlerAdapter</code> and <code>SimpleControllerHandlerAdapter</code></p>
-<p><img src="/Users/tony.chenjy/Desktop/2019.03.20 - 02.png" alt="2019.03.20 - 02"></p>
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g1auuqcn6sj312q0jzjul.jpg" alt="2019.03.21 - 02"></p>
 <p>Then it uses <code>RequestMappingHandlerAdapter</code> to handle the request, because the <code>GreetingController.greeting()</code> is annotated with @RequestMapping</p>
 <p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1g1au0ptdm5j313r0nn42a.jpg" alt="2019.03.21 - 03"></p>
 <p>Apparently, <code>DispatcherServlet</code> is exactly the client who uses the adapter</p>
 <p><code>HandlerAdapter</code> is the Target which is an abstraction of Adapter</p>
-<p><img src="/Users/tony.chenjy/Desktop/2019.03.21 - 04.png" alt="2019.03.21 - 04"></p>
+<p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1g1auubmvyyj30td09d0sr.jpg" alt="2019.03.21 - 04"></p>
 <p><code>AbstractHandlerMethodAdapter or RequestMappingHandlerAdapter</code> is the Adapter to <code>HandlerMethod</code> Adaptee</p>
-<p><img src="/Users/tony.chenjy/Desktop/2019.03.21 - 05.png" alt="2019.03.21 - 05"></p>
+<p><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1g1autz5l38j30nq0gft9y.jpg" alt="2019.03.21 - 05"></p>
 <p><code>HttpRequestHandlerAdapter</code> is the Adapter to <code>HttpRequestHandler</code> Adaptee</p>
-<p><img src="/Users/tony.chenjy/Desktop/2019.03.21 - 06.png" alt="2019.03.21 - 06"></p>
+<p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g1autffwquj30lz0eat9c.jpg" alt="2019.03.21 - 06"></p>
 <p><code>SimpleServletHandlerAdapter</code> is the Adapter to <code>Servlet</code> Adaptee</p>
-<p><img src="/Users/tony.chenjy/Desktop/2019.03.21 - 07.png" alt="2019.03.21 - 07"></p>
+<p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g1ausvi7yhj30lo0bdgm2.jpg" alt="2019.03.21 - 07"></p>
 <p><code>SimpleControllerHandlerAdapter</code> is the Adapter to <code>Controller</code> Adaptee</p>
-<p><img src="/Users/tony.chenjy/Desktop/2019.03.21 - 08.png" alt="2019.03.21 - 08"></p>
+<p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1g1ausho2rjj30l70do3z4.jpg" alt="2019.03.21 - 08"></p>
 <h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>Adapter Design Pattern: Most of time Adapter is used to encapsulate the Adaptee which is out of style or no longer convenient to use. So we define an adapter and encapsulate the complexity of using the Adaptee. So that we can use the Adaptee function by using the Adapter more conveniently.</p>
 <p>In my opinion, HandlerAdapter in SpringMVC could be used to be compatible with <code>Servlet</code>.</p>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://blog.csdn.net/qq_41790833/article/details/84348283" target="_blank" rel="noopener">《大话设计模式–适配器模式》笔记</a></p>
