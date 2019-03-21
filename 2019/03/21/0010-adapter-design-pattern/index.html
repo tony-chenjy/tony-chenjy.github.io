@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Description【SpringMVC】SpringMVC Source Code - Running Process In the passage above, we looked into the source code of SpringMVC to review the running process of SpringMVC. Then we posted a question, “">
+<meta name="keywords" content="SpringMVC,Adapter Design Pattern,Design Pattern">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【SpringMVC】SpringMVC source code - HandlerAdapter &amp; Adapter Design Pattern">
+<meta property="og:url" content="http://yoursite.com/2019/03/21/0010-adapter-design-pattern/index.html">
+<meta property="og:site_name" content="DevLog">
+<meta property="og:description" content="Description【SpringMVC】SpringMVC Source Code - Running Process In the passage above, we looked into the source code of SpringMVC to review the running process of SpringMVC. Then we posted a question, “">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tKfTcgy1g1atywr3wnj30ka0atjuu.jpg">
+<meta property="og:image" content="http://yoursite.com/Users/tony.chenjy/Desktop/2019.03.20%20-%2002.png">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tKfTcgy1g1au0ptdm5j313r0nn42a.jpg">
+<meta property="og:image" content="http://yoursite.com/Users/tony.chenjy/Desktop/2019.03.21%20-%2004.png">
+<meta property="og:image" content="http://yoursite.com/Users/tony.chenjy/Desktop/2019.03.21%20-%2005.png">
+<meta property="og:image" content="http://yoursite.com/Users/tony.chenjy/Desktop/2019.03.21%20-%2006.png">
+<meta property="og:image" content="http://yoursite.com/Users/tony.chenjy/Desktop/2019.03.21%20-%2007.png">
+<meta property="og:image" content="http://yoursite.com/Users/tony.chenjy/Desktop/2019.03.21%20-%2008.png">
+<meta property="og:updated_time" content="2019-03-21T15:38:12.318Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【SpringMVC】SpringMVC source code - HandlerAdapter &amp; Adapter Design Pattern">
+<meta name="twitter:description" content="Description【SpringMVC】SpringMVC Source Code - Running Process In the passage above, we looked into the source code of SpringMVC to review the running process of SpringMVC. Then we posted a question, “">
+<meta name="twitter:image" content="https://ws2.sinaimg.cn/large/006tKfTcgy1g1atywr3wnj30ka0atjuu.jpg">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>【SpringMVC】SpringMVC source code - HandlerAdapter &amp; Adapter Design Pattern</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </span>
+    <br>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2019/03/20/0009-springmvc-source-code/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/03/21/0010-adapter-design-pattern/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/03/21/0010-adapter-design-pattern/&text=【SpringMVC】SpringMVC source code - HandlerAdapter &amp; Adapter Design Pattern"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/03/21/0010-adapter-design-pattern/&title=【SpringMVC】SpringMVC source code - HandlerAdapter &amp; Adapter Design Pattern"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/03/21/0010-adapter-design-pattern/&is_video=false&description=【SpringMVC】SpringMVC source code - HandlerAdapter &amp; Adapter Design Pattern"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=【SpringMVC】SpringMVC source code - HandlerAdapter &amp; Adapter Design Pattern&body=Check out this article: http://yoursite.com/2019/03/21/0010-adapter-design-pattern/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/03/21/0010-adapter-design-pattern/&title=【SpringMVC】SpringMVC source code - HandlerAdapter &amp; Adapter Design Pattern"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/03/21/0010-adapter-design-pattern/&title=【SpringMVC】SpringMVC source code - HandlerAdapter &amp; Adapter Design Pattern"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/03/21/0010-adapter-design-pattern/&title=【SpringMVC】SpringMVC source code - HandlerAdapter &amp; Adapter Design Pattern"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/03/21/0010-adapter-design-pattern/&title=【SpringMVC】SpringMVC source code - HandlerAdapter &amp; Adapter Design Pattern"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/03/21/0010-adapter-design-pattern/&name=【SpringMVC】SpringMVC source code - HandlerAdapter &amp; Adapter Design Pattern&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Description"><span class="toc-number">1.</span> <span class="toc-text">Description</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Environment-amp-Tools"><span class="toc-number">2.</span> <span class="toc-text">Environment &amp; Tools</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Guide"><span class="toc-number">3.</span> <span class="toc-text">Guide</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Adapter-Design-Pattern"><span class="toc-number">3.1.</span> <span class="toc-text">Adapter Design Pattern</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HandlerAdapter"><span class="toc-number">3.2.</span> <span class="toc-text">HandlerAdapter</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary"><span class="toc-number">4.</span> <span class="toc-text">Summary</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">5.</span> <span class="toc-text">Reference</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Q-amp-A"><span class="toc-number">6.</span> <span class="toc-text">Q&amp;A</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope="" itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        【SpringMVC】SpringMVC source code - HandlerAdapter &amp; Adapter Design Pattern
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="name">DevLog</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2019-03-21T15:17:26.000Z" itemprop="datePublished">2019-03-21</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/Adapter-Design-Pattern/">Adapter Design Pattern</a>, <a class="tag-link" href="/tags/Design-Pattern/">Design Pattern</a>, <a class="tag-link" href="/tags/SpringMVC/">SpringMVC</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p><a href="https://tony-chenjy.github.io/2019/03/20/0009-springmvc-source-code/" target="_blank" rel="noopener">【SpringMVC】SpringMVC Source Code - Running Process</a></p>
+<p>In the passage above, we looked into the source code of SpringMVC to review the running process of SpringMVC. Then we posted a question, “why does the Handler handle the request using HandlerAdapter instead of handling itself?”. I guessed it was about Adapter Design Pattern, but for compatibility instead of scalability.</p>
+<h2 id="Environment-amp-Tools"><a href="#Environment-amp-Tools" class="headerlink" title="Environment &amp; Tools"></a>Environment &amp; Tools</h2><p>IntelliJ IDEA 2018.3 (Ultimate Edition), JRE: 1.8, maven 3.6, SpringBoot 2.0.5.RELEASE, </p>
+<h2 id="Guide"><a href="#Guide" class="headerlink" title="Guide"></a>Guide</h2><h3 id="Adapter-Design-Pattern"><a href="#Adapter-Design-Pattern" class="headerlink" title="Adapter Design Pattern"></a>Adapter Design Pattern</h3><p>Before looking into HandlerAdapter to find out how it uses Adapter Design Pattern, let’s take a quick glance at what Adapter Design Pattern is.</p>
+<blockquote>
+<p>适配器模式（Adapter），将一个类的接口转换成客户希望的另外一个接口。adapter模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。</p>
+</blockquote>
+<p><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1g1atywr3wnj30ka0atjuu.jpg" alt="2019.03.21 - 01"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	    <span class="comment">// when we need Adaptee, we use Adapter instead of Adaptee</span></span><br><span class="line">		Target target=<span class="keyword">new</span> Adapter();</span><br><span class="line">		target.request();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Target is an abstraction of Adapter, designed to lower coupling </span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Target</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">request</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"普通的请求"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// the real Adapter</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Adapter</span> <span class="keyword">extends</span> <span class="title">Target</span> </span>&#123; </span><br><span class="line">    <span class="keyword">private</span> Adaptee adaptee=<span class="keyword">new</span> Adaptee();</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">request</span><span class="params">()</span> </span>&#123; </span><br><span class="line">        <span class="comment">// when we use Adapter, we are actually using Adaptee</span></span><br><span class="line">        adaptee.specificRequest(); </span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Adaptee which is not suitable to newly situation and needs to be adapted</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Adaptee</span> </span>&#123; </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">specificRequest</span><span class="params">()</span> </span>&#123; </span><br><span class="line">        System.out.println(<span class="string">"特殊的请求"</span>); </span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="HandlerAdapter"><a href="#HandlerAdapter" class="headerlink" title="HandlerAdapter"></a>HandlerAdapter</h3><p>Let’s find out why and how SpringMVC uses Adapter Design Pattern in HandlerAdapter.</p>
+<p>When it iterates <code>List&lt;HandlerAdapter&gt; handlerAdapters</code>, it has 3 handlerAdapters, including <code>RequestMappingHandlerAdapter</code>, <code>HttpRequestHandlerAdapter</code> and <code>SimpleControllerHandlerAdapter</code></p>
+<p><img src="/Users/tony.chenjy/Desktop/2019.03.20 - 02.png" alt="2019.03.20 - 02"></p>
+<p>Then it uses <code>RequestMappingHandlerAdapter</code> to handle the request, because the <code>GreetingController.greeting()</code> is annotated with @RequestMapping</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1g1au0ptdm5j313r0nn42a.jpg" alt="2019.03.21 - 03"></p>
+<p>Apparently, <code>DispatcherServlet</code> is exactly the client who uses the adapter</p>
+<p><code>HandlerAdapter</code> is the Target which is an abstraction of Adapter</p>
+<p><img src="/Users/tony.chenjy/Desktop/2019.03.21 - 04.png" alt="2019.03.21 - 04"></p>
+<p><code>AbstractHandlerMethodAdapter or RequestMappingHandlerAdapter</code> is the Adapter to <code>HandlerMethod</code> Adaptee</p>
+<p><img src="/Users/tony.chenjy/Desktop/2019.03.21 - 05.png" alt="2019.03.21 - 05"></p>
+<p><code>HttpRequestHandlerAdapter</code> is the Adapter to <code>HttpRequestHandler</code> Adaptee</p>
+<p><img src="/Users/tony.chenjy/Desktop/2019.03.21 - 06.png" alt="2019.03.21 - 06"></p>
+<p><code>SimpleServletHandlerAdapter</code> is the Adapter to <code>Servlet</code> Adaptee</p>
+<p><img src="/Users/tony.chenjy/Desktop/2019.03.21 - 07.png" alt="2019.03.21 - 07"></p>
+<p><code>SimpleControllerHandlerAdapter</code> is the Adapter to <code>Controller</code> Adaptee</p>
+<p><img src="/Users/tony.chenjy/Desktop/2019.03.21 - 08.png" alt="2019.03.21 - 08"></p>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>Adapter Design Pattern: Most of time Adapter is used to encapsulate the Adaptee which is out of style or no longer convenient to use. So we define an adapter and encapsulate the complexity of using the Adaptee. So that we can use the Adaptee function by using the Adapter more conveniently.</p>
+<p>In my opinion, HandlerAdapter in SpringMVC could be used to be compatible with <code>Servlet</code>.</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://blog.csdn.net/qq_41790833/article/details/84348283" target="_blank" rel="noopener">《大话设计模式–适配器模式》笔记</a></p>
+<p><a href="https://blog.csdn.net/a362212624/article/details/80431499" target="_blank" rel="noopener">看springmvc适配器模式—HandlerAdapter</a></p>
+<p><a href="https://blog.csdn.net/qq924862077/article/details/53842993" target="_blank" rel="noopener">springMVC源码分析–HandlerAdapter（一）</a></p>
+<p><a href="https://blog.csdn.net/qq924862077/article/details/53843251" target="_blank" rel="noopener">springMVC源码分析–SimpleServletHandlerAdapter（二）</a></p>
+<p><a href="https://blog.csdn.net/qq924862077/article/details/53843393" target="_blank" rel="noopener">springMVC源码分析–SimpleControllerHandlerAdapter（三）</a></p>
+<p><a href="https://blog.csdn.net/qq924862077/article/details/53843466" target="_blank" rel="noopener">springMVC源码分析–HttpRequestHandlerAdapter（四）</a></p>
+<p><a href="https://www.cnblogs.com/deng-cc/p/6927447.html" target="_blank" rel="noopener">使用IntelliJ IDEA查看类的继承关系图形</a></p>
+<p><a href="https://blog.csdn.net/HeatDeath/article/details/79468782" target="_blank" rel="noopener">Intellij IDEA 查找接口实现类的快捷键</a></p>
+<h2 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h2><p>Q: The structure of Adapter Design Pattern is quite similar to that of Proxy Design Pattern, so what is the difference between them?</p>
+<p>A: In Adapter Design Pattern, we only invoke the Adaptee. But in Proxy Design Pattern, we will do some thing else before or after we invoke the proxied subject.</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Description"><span class="toc-number">1.</span> <span class="toc-text">Description</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Environment-amp-Tools"><span class="toc-number">2.</span> <span class="toc-text">Environment &amp; Tools</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Guide"><span class="toc-number">3.</span> <span class="toc-text">Guide</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Adapter-Design-Pattern"><span class="toc-number">3.1.</span> <span class="toc-text">Adapter Design Pattern</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HandlerAdapter"><span class="toc-number">3.2.</span> <span class="toc-text">HandlerAdapter</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary"><span class="toc-number">4.</span> <span class="toc-text">Summary</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">5.</span> <span class="toc-text">Reference</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Q-amp-A"><span class="toc-number">6.</span> <span class="toc-text">Q&amp;A</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/03/21/0010-adapter-design-pattern/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/03/21/0010-adapter-design-pattern/&text=【SpringMVC】SpringMVC source code - HandlerAdapter &amp; Adapter Design Pattern"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/03/21/0010-adapter-design-pattern/&title=【SpringMVC】SpringMVC source code - HandlerAdapter &amp; Adapter Design Pattern"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/03/21/0010-adapter-design-pattern/&is_video=false&description=【SpringMVC】SpringMVC source code - HandlerAdapter &amp; Adapter Design Pattern"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=【SpringMVC】SpringMVC source code - HandlerAdapter &amp; Adapter Design Pattern&body=Check out this article: http://yoursite.com/2019/03/21/0010-adapter-design-pattern/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/03/21/0010-adapter-design-pattern/&title=【SpringMVC】SpringMVC source code - HandlerAdapter &amp; Adapter Design Pattern"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/03/21/0010-adapter-design-pattern/&title=【SpringMVC】SpringMVC source code - HandlerAdapter &amp; Adapter Design Pattern"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/03/21/0010-adapter-design-pattern/&title=【SpringMVC】SpringMVC source code - HandlerAdapter &amp; Adapter Design Pattern"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/03/21/0010-adapter-design-pattern/&title=【SpringMVC】SpringMVC source code - HandlerAdapter &amp; Adapter Design Pattern"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/03/21/0010-adapter-design-pattern/&name=【SpringMVC】SpringMVC source code - HandlerAdapter &amp; Adapter Design Pattern&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 Tony Chen
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+    <!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
