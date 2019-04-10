@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Description Swagger is a powerful yet easy-to-use suite of API developer tools for teams and individuals, enabling development across the entire API lifecycle, from design and documentation, to test a">
+<meta name="keywords" content="Swagger2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Swagger2】integrate Swagger2 in Spring4 project">
+<meta property="og:url" content="http://yoursite.com/2019/04/10/0011-swagger2/index.html">
+<meta property="og:site_name" content="DevLog">
+<meta property="og:description" content="Description Swagger is a powerful yet easy-to-use suite of API developer tools for teams and individuals, enabling development across the entire API lifecycle, from design and documentation, to test a">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79ly1g1xvupjntwj30wj08bmxb.jpg">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNc79ly1g1xvv7sjx0j30qq0di3z1.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNc79ly1g1xvvgw6h7j30kj07mq33.jpg">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNc79ly1g1xvvn2k7qj30yj0oiq3o.jpg">
+<meta property="og:updated_time" content="2019-04-10T14:00:06.295Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【Swagger2】integrate Swagger2 in Spring4 project">
+<meta name="twitter:description" content="Description Swagger is a powerful yet easy-to-use suite of API developer tools for teams and individuals, enabling development across the entire API lifecycle, from design and documentation, to test a">
+<meta name="twitter:image" content="https://ws2.sinaimg.cn/large/006tNc79ly1g1xvupjntwj30wj08bmxb.jpg">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>【Swagger2】integrate Swagger2 in Spring4 project</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </span>
+    <br>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2019/03/21/0010-adapter-design-pattern/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/04/10/0011-swagger2/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/04/10/0011-swagger2/&text=【Swagger2】integrate Swagger2 in Spring4 project"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/04/10/0011-swagger2/&title=【Swagger2】integrate Swagger2 in Spring4 project"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/04/10/0011-swagger2/&is_video=false&description=【Swagger2】integrate Swagger2 in Spring4 project"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=【Swagger2】integrate Swagger2 in Spring4 project&body=Check out this article: http://yoursite.com/2019/04/10/0011-swagger2/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/04/10/0011-swagger2/&title=【Swagger2】integrate Swagger2 in Spring4 project"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/04/10/0011-swagger2/&title=【Swagger2】integrate Swagger2 in Spring4 project"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/04/10/0011-swagger2/&title=【Swagger2】integrate Swagger2 in Spring4 project"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/04/10/0011-swagger2/&title=【Swagger2】integrate Swagger2 in Spring4 project"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/04/10/0011-swagger2/&name=【Swagger2】integrate Swagger2 in Spring4 project&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Description"><span class="toc-number">1.</span> <span class="toc-text">Description</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Environment-amp-Tools"><span class="toc-number">2.</span> <span class="toc-text">Environment &amp; Tools</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Guide"><span class="toc-number">3.</span> <span class="toc-text">Guide</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#import-dependencies-or-jars"><span class="toc-number">3.1.</span> <span class="toc-text">import dependencies or jars</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#config-Swagger2-in-Java-config"><span class="toc-number">3.2.</span> <span class="toc-text">config Swagger2 in Java config</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#scan-Swagger2-config-to-Spring-IOC-container"><span class="toc-number">3.3.</span> <span class="toc-text">scan Swagger2 config to Spring IOC container</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#add-resources-mapping"><span class="toc-number">3.4.</span> <span class="toc-text">add resources mapping</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#add-a-test-controller"><span class="toc-number">3.5.</span> <span class="toc-text">add a test controller</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#access-in-browser"><span class="toc-number">3.6.</span> <span class="toc-text">access in browser</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#More"><span class="toc-number">4.</span> <span class="toc-text">More</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#global-swagger-config-for-api-info"><span class="toc-number">4.1.</span> <span class="toc-text">global swagger config for api info</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#use-swagger-annotation"><span class="toc-number">4.2.</span> <span class="toc-text">use swagger annotation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary"><span class="toc-number">5.</span> <span class="toc-text">Summary</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">6.</span> <span class="toc-text">Reference</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Other-References"><span class="toc-number">7.</span> <span class="toc-text">Other References</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope="" itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        【Swagger2】integrate Swagger2 in Spring4 project
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="name">DevLog</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2019-04-10T13:55:03.000Z" itemprop="datePublished">2019-04-10</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/Swagger2/">Swagger2</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><blockquote>
+<p>Swagger is a powerful yet easy-to-use suite of API developer tools for teams and individuals, enabling development across the entire API lifecycle, from design and documentation, to test and deployment.</p>
+</blockquote>
+<h2 id="Environment-amp-Tools"><a href="#Environment-amp-Tools" class="headerlink" title="Environment &amp; Tools"></a>Environment &amp; Tools</h2><p>maven, Spring 4.1.6.RELEASE, SpringMVC 4.1.6.RELEASE, Swagger 2.7.0, jackson-databind 2.7.4, </p>
+<h2 id="Guide"><a href="#Guide" class="headerlink" title="Guide"></a>Guide</h2><h3 id="import-dependencies-or-jars"><a href="#import-dependencies-or-jars" class="headerlink" title="import dependencies or jars"></a>import dependencies or jars</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.springfox<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springfox-swagger2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>2.7.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.springfox<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springfox-swagger-ui<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>2.7.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="config-Swagger2-in-Java-config"><a href="#config-Swagger2-in-Java-config" class="headerlink" title="config Swagger2 in Java config"></a>config Swagger2 in Java config</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableWebMvc</span></span><br><span class="line"><span class="meta">@EnableSwagger</span>2</span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SwaggerConfig</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="scan-Swagger2-config-to-Spring-IOC-container"><a href="#scan-Swagger2-config-to-Spring-IOC-container" class="headerlink" title="scan Swagger2 config to Spring IOC container"></a>scan Swagger2 config to Spring IOC container</h3><p>Add <code>&lt;context:component-scan base-package=&quot;--&quot; /&gt;</code> in <code>spring-mvc.xml</code> to scan the Swagger2 Config into Spring IOC container. </p>
+<p>Modify <code>--</code> to your package of <code>SwaggerConfig</code></p>
+<h3 id="add-resources-mapping"><a href="#add-resources-mapping" class="headerlink" title="add resources mapping"></a>add resources mapping</h3><p>Add resources mapping to the uri <code>/swagger-ui.html</code> in <code>spring-mvc.xml</code>.<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mvc:resources</span> <span class="attr">mapping</span>=<span class="string">"swagger-ui.html"</span> <span class="attr">location</span>=<span class="string">"classpath:/META-INF/resources/"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mvc:resources</span> <span class="attr">mapping</span>=<span class="string">"/webjars/**"</span> <span class="attr">location</span>=<span class="string">"classpath:/META-INF/resources/webjars/"</span>/&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="add-a-test-controller"><a href="#add-a-test-controller" class="headerlink" title="add a test controller"></a>add a test controller</h3><p>Add a test controller using only annotation of Spring<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@Scope</span>(<span class="string">"prototype"</span>)</span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/test"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@RequestMapping</span>(value = <span class="string">"/hello"</span>, method = &#123; RequestMethod.GET &#125;)</span><br><span class="line">	<span class="meta">@ResponseBody</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> AjaxJson <span class="title">hello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> AjaxJson();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Add <code>&lt;context:component-scan base-package=&quot;--&quot;&gt;</code> in <code>spring-mvc.xml</code> to scan the controllers into Spring IOC container.</p>
+<p>Modify <code>--</code> to your package of <code>TestController</code></p>
+<h3 id="access-in-browser"><a href="#access-in-browser" class="headerlink" title="access in browser"></a>access in browser</h3><p>Access <code>http://{ip}:{port}/{context_path}/swagger-ui.html</code>.</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79ly1g1xvupjntwj30wj08bmxb.jpg" alt="2019.04.09 - 1.1"></p>
+<h2 id="More"><a href="#More" class="headerlink" title="More"></a>More</h2><p>You can try more in SwaggerConfig and Swagger annotations.</p>
+<h3 id="global-swagger-config-for-api-info"><a href="#global-swagger-config-for-api-info" class="headerlink" title="global swagger config for api info"></a>global swagger config for api info</h3><p><img src="https://ws4.sinaimg.cn/large/006tNc79ly1g1xvv7sjx0j30qq0di3z1.jpg" alt="2019.04.09 - 1.2"></p>
+<h3 id="use-swagger-annotation"><a href="#use-swagger-annotation" class="headerlink" title="use swagger annotation"></a>use swagger annotation</h3><p><img src="https://ws3.sinaimg.cn/large/006tNc79ly1g1xvvgw6h7j30kj07mq33.jpg" alt="2019.04.09 - 1.3"></p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79ly1g1xvvn2k7qj30yj0oiq3o.jpg" alt="2019.04.09 - 1.4"></p>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p><a href="https://blog.csdn.net/liyanlei5858/article/details/80326995" target="_blank" rel="noopener">Spring4集成Swagger：真的只需要四步，五分钟速成</a></p>
+<p>Most of my operations refer to the passage above.<br>In the first time, I did directly as it told, but I failed.<br>It could be the reason that I hadn’t scan the <code>SwaggerConfig</code> into Spring IOC container because my project is an XML project totally based on XML configuration.</p>
+<p>Actually, what we need to do is, 1.import dependencies, 2.enable SwaggerConfig, 3.add the SwaggerConfig and controllers to Spring IOC container</p>
+<p>PS:<br>We use <code>&lt;context:component-scan base-package=&quot;--&quot;&gt;</code> in <code>spring-mvc.xml</code> to scan SwaggerConfig and controllers into Spring IOC container.<br>We use <code>@EnableSwagger2</code> to build swagger-ui with all the controllers in Spring IOC container.<br>We can use <code>.apis(RequestHandlerSelectors.basePackage(&quot;--&quot;))</code> to build swagger-ui with specific controllers but only when they are in Spring IOC container.</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://blog.csdn.net/qq_25615395/article/details/70229139" target="_blank" rel="noopener">Swagger原理解析</a></p>
+<p><a href="https://blog.csdn.net/liyanlei5858/article/details/80326995" target="_blank" rel="noopener">Spring4集成Swagger：真的只需要四步，五分钟速成</a></p>
+<p><a href="https://www.jianshu.com/p/840320d431a1" target="_blank" rel="noopener">13.9 SpringBoot集成Swagger2中遇到的问题</a></p>
+<p><a href="https://blog.csdn.net/itcreater000/article/details/81975295" target="_blank" rel="noopener">swagger遇到的坑</a></p>
+<p><a href="https://blog.csdn.net/weixin_34121282/article/details/87488939" target="_blank" rel="noopener">swagger使用tags替换过期decription的坑</a></p>
+<h2 id="Other-References"><a href="#Other-References" class="headerlink" title="Other References"></a>Other References</h2><p><a href="https://www.cnblogs.com/mao2080/p/8991027.html" target="_blank" rel="noopener">Springboot集成Swagger操作步骤</a></p>
+<p><a href="https://blog.csdn.net/lzj3462144/article/details/79273691" target="_blank" rel="noopener">【springboot】springboot项目集成swagger的demo</a></p>
+<p><a href="https://www.cnblogs.com/exmyth/p/7183753.html" target="_blank" rel="noopener">Spring MVC中使用 Swagger2 构建Restful API</a></p>
+<p><a href="https://www.cnblogs.com/cq-jiang/p/8457770.html" target="_blank" rel="noopener">springMvc+swagger整合例子</a></p>
+<p><a href="https://blog.csdn.net/shihua0610/article/details/77318805" target="_blank" rel="noopener">SpringMvc4集成swagger2</a></p>
+<p><a href="https://www.cnblogs.com/qthh/p/6516069.html" target="_blank" rel="noopener">springMVC中集成swagger</a></p>
+<p><a href="https://blog.csdn.net/weixin_41846320/article/details/82970204" target="_blank" rel="noopener">swagger2 注解说明文档</a></p>
+<p><a href="https://blog.csdn.net/u014231523/article/details/76522486" target="_blank" rel="noopener">swagger2常用注解说明</a></p>
+<p><a href="https://www.jianshu.com/p/4539e312ce87" target="_blank" rel="noopener">Swagger配置全局Response Model</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Description"><span class="toc-number">1.</span> <span class="toc-text">Description</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Environment-amp-Tools"><span class="toc-number">2.</span> <span class="toc-text">Environment &amp; Tools</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Guide"><span class="toc-number">3.</span> <span class="toc-text">Guide</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#import-dependencies-or-jars"><span class="toc-number">3.1.</span> <span class="toc-text">import dependencies or jars</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#config-Swagger2-in-Java-config"><span class="toc-number">3.2.</span> <span class="toc-text">config Swagger2 in Java config</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#scan-Swagger2-config-to-Spring-IOC-container"><span class="toc-number">3.3.</span> <span class="toc-text">scan Swagger2 config to Spring IOC container</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#add-resources-mapping"><span class="toc-number">3.4.</span> <span class="toc-text">add resources mapping</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#add-a-test-controller"><span class="toc-number">3.5.</span> <span class="toc-text">add a test controller</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#access-in-browser"><span class="toc-number">3.6.</span> <span class="toc-text">access in browser</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#More"><span class="toc-number">4.</span> <span class="toc-text">More</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#global-swagger-config-for-api-info"><span class="toc-number">4.1.</span> <span class="toc-text">global swagger config for api info</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#use-swagger-annotation"><span class="toc-number">4.2.</span> <span class="toc-text">use swagger annotation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary"><span class="toc-number">5.</span> <span class="toc-text">Summary</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">6.</span> <span class="toc-text">Reference</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Other-References"><span class="toc-number">7.</span> <span class="toc-text">Other References</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/04/10/0011-swagger2/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/04/10/0011-swagger2/&text=【Swagger2】integrate Swagger2 in Spring4 project"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/04/10/0011-swagger2/&title=【Swagger2】integrate Swagger2 in Spring4 project"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/04/10/0011-swagger2/&is_video=false&description=【Swagger2】integrate Swagger2 in Spring4 project"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=【Swagger2】integrate Swagger2 in Spring4 project&body=Check out this article: http://yoursite.com/2019/04/10/0011-swagger2/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/04/10/0011-swagger2/&title=【Swagger2】integrate Swagger2 in Spring4 project"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/04/10/0011-swagger2/&title=【Swagger2】integrate Swagger2 in Spring4 project"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/04/10/0011-swagger2/&title=【Swagger2】integrate Swagger2 in Spring4 project"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/04/10/0011-swagger2/&title=【Swagger2】integrate Swagger2 in Spring4 project"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/04/10/0011-swagger2/&name=【Swagger2】integrate Swagger2 in Spring4 project&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 Tony Chen
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+    <!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
