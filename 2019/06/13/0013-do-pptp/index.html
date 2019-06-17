@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="DescriptionEnvironment &amp;amp; Toolsdigital ocean, centos7 Guide检查是否支持PPTP123modprobe ppp-compress-18 &amp;amp;&amp;amp; echo ok #返回OKzgrep MPPE /proc/config.gz #返回CONFIG_PPP_MPPE=y 或 =mcat /dev/net/tun #返回cat:">
+<meta name="keywords" content="centos7,digital ocean,PPTP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【VPS】build a PPTP server in digital ocean centos7">
+<meta property="og:url" content="http://yoursite.com/2019/06/13/0013-do-pptp/index.html">
+<meta property="og:site_name" content="DevLog">
+<meta property="og:description" content="DescriptionEnvironment &amp;amp; Toolsdigital ocean, centos7 Guide检查是否支持PPTP123modprobe ppp-compress-18 &amp;amp;&amp;amp; echo ok #返回OKzgrep MPPE /proc/config.gz #返回CONFIG_PPP_MPPE=y 或 =mcat /dev/net/tun #返回cat:">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/006tNc79gy1g44195udpwj30dn02sa9z.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79gy1g4419unb3jj30l20lpgmv.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/006tNc79gy1g441acvlypj30l90n5jtd.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006tNc79gy1g441axyrmbj30lb0knwfs.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79gy1g441bk0f0ej309v01fa9v.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006tNc79gy1g441cfsgsij30l30a50tt.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006tNc79gy1g441cw7qlcj30am03y749.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79gy1g441dlgzezj309o044dfs.jpg">
+<meta property="og:updated_time" content="2019-06-17T04:24:03.803Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【VPS】build a PPTP server in digital ocean centos7">
+<meta name="twitter:description" content="DescriptionEnvironment &amp;amp; Toolsdigital ocean, centos7 Guide检查是否支持PPTP123modprobe ppp-compress-18 &amp;amp;&amp;amp; echo ok #返回OKzgrep MPPE /proc/config.gz #返回CONFIG_PPP_MPPE=y 或 =mcat /dev/net/tun #返回cat:">
+<meta name="twitter:image" content="http://ww3.sinaimg.cn/large/006tNc79gy1g44195udpwj30dn02sa9z.jpg">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>【VPS】build a PPTP server in digital ocean centos7</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </span>
+    <br>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2019/06/13/0012-do-shadowsocks/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/06/13/0013-do-pptp/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/06/13/0013-do-pptp/&text=【VPS】build a PPTP server in digital ocean centos7"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/06/13/0013-do-pptp/&title=【VPS】build a PPTP server in digital ocean centos7"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/06/13/0013-do-pptp/&is_video=false&description=【VPS】build a PPTP server in digital ocean centos7"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=【VPS】build a PPTP server in digital ocean centos7&body=Check out this article: http://yoursite.com/2019/06/13/0013-do-pptp/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/06/13/0013-do-pptp/&title=【VPS】build a PPTP server in digital ocean centos7"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/06/13/0013-do-pptp/&title=【VPS】build a PPTP server in digital ocean centos7"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/06/13/0013-do-pptp/&title=【VPS】build a PPTP server in digital ocean centos7"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/06/13/0013-do-pptp/&title=【VPS】build a PPTP server in digital ocean centos7"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/06/13/0013-do-pptp/&name=【VPS】build a PPTP server in digital ocean centos7&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Description"><span class="toc-number">1.</span> <span class="toc-text">Description</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Environment-amp-Tools"><span class="toc-number">2.</span> <span class="toc-text">Environment &amp; Tools</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Guide"><span class="toc-number">3.</span> <span class="toc-text">Guide</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#检查是否支持PPTP"><span class="toc-number">3.1.</span> <span class="toc-text">检查是否支持PPTP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装PPP"><span class="toc-number">3.2.</span> <span class="toc-text">安装PPP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装-amp-配置PPTPD"><span class="toc-number">3.3.</span> <span class="toc-text">安装&amp;配置PPTPD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改防火墙设置："><span class="toc-number">3.4.</span> <span class="toc-text">修改防火墙设置：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#验证"><span class="toc-number">3.5.</span> <span class="toc-text">验证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Q-amp-A"><span class="toc-number">3.6.</span> <span class="toc-text">Q&amp;A</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">4.</span> <span class="toc-text">Reference</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope="" itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        【VPS】build a PPTP server in digital ocean centos7
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="name">DevLog</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2019-06-13T03:52:27.000Z" itemprop="datePublished">2019-06-13</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/PPTP/">PPTP</a>, <a class="tag-link" href="/tags/centos7/">centos7</a>, <a class="tag-link" href="/tags/digital-ocean/">digital ocean</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><h2 id="Environment-amp-Tools"><a href="#Environment-amp-Tools" class="headerlink" title="Environment &amp; Tools"></a>Environment &amp; Tools</h2><p>digital ocean, centos7</p>
+<h2 id="Guide"><a href="#Guide" class="headerlink" title="Guide"></a>Guide</h2><h3 id="检查是否支持PPTP"><a href="#检查是否支持PPTP" class="headerlink" title="检查是否支持PPTP"></a>检查是否支持PPTP</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">modprobe ppp-compress-18 &amp;&amp; echo ok #返回OK</span><br><span class="line">zgrep MPPE /proc/config.gz #返回CONFIG_PPP_MPPE=y 或 =m</span><br><span class="line">cat /dev/net/tun #返回cat: /dev/net/tun: File descriptor in bad state</span><br></pre></td></tr></table></figure>
+<p><img src="http://ww3.sinaimg.cn/large/006tNc79gy1g44195udpwj30dn02sa9z.jpg" alt="2-1"></p>
+<h3 id="安装PPP"><a href="#安装PPP" class="headerlink" title="安装PPP"></a>安装PPP</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y ppp</span><br></pre></td></tr></table></figure>
+<p><img src="http://ww2.sinaimg.cn/large/006tNc79gy1g4419unb3jj30l20lpgmv.jpg" alt="2-2"></p>
+<h3 id="安装-amp-配置PPTPD"><a href="#安装-amp-配置PPTPD" class="headerlink" title="安装&amp;配置PPTPD"></a>安装&amp;配置PPTPD</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm</span><br><span class="line">rpm -ivh epel-release-latest-7.noarch.rpm</span><br><span class="line">yum repolist</span><br><span class="line">yum -y update</span><br><span class="line">yum install -y pptpd</span><br></pre></td></tr></table></figure>
+<p><img src="http://ww3.sinaimg.cn/large/006tNc79gy1g441acvlypj30l90n5jtd.jpg" alt="2-3"></p>
+<p><img src="http://ww1.sinaimg.cn/large/006tNc79gy1g441axyrmbj30lb0knwfs.jpg" alt="2-4"></p>
+<p>编辑/etc/pptpd.conf设置VPN内网IP段</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">localip 192.168.0.1</span><br><span class="line">remoteip 192.168.0.214,192.168.0.245</span><br></pre></td></tr></table></figure>
+<p>编辑/etc/ppp/options.pptpd</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 更改DNS项：</span><br><span class="line">ms-dns 8.8.8.8</span><br><span class="line">ms-dns 8.8.4.4</span><br><span class="line"></span><br><span class="line">// 修改日志记录：</span><br><span class="line">nologfd</span><br><span class="line">logfile /var/<span class="built_in">log</span>/pptpd.log</span><br></pre></td></tr></table></figure>
+<p>编辑/etc/ppp/chap-secrets设置VPN账号密码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">用户名  pptpd   密码    * //每个字段之间用tab键隔开  *表示用任意IP连接VPN都可以</span><br><span class="line">root    pptpd   123     *</span><br></pre></td></tr></table></figure>
+<p>编辑/etc/sysctl.conf修改内核参数支持内核转发</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net.ipv4.ip_forward=1</span><br><span class="line">输入命令生效：sysctl -p</span><br></pre></td></tr></table></figure>
+<p><img src="http://ww2.sinaimg.cn/large/006tNc79gy1g441bk0f0ej309v01fa9v.jpg" alt="2-5"></p>
+<h3 id="修改防火墙设置："><a href="#修改防火墙设置：" class="headerlink" title="修改防火墙设置："></a>修改防火墙设置：</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">创建规则文件：touch /usr/lib/firewalld/services/pptpd.xml</span><br><span class="line"></span><br><span class="line">修改规则文件</span><br><span class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span><br><span class="line">&lt;service&gt;</span><br><span class="line">       &lt;short&gt;pptpd&lt;/short&gt;</span><br><span class="line">       &lt;description&gt;PPTP&lt;/description&gt;</span><br><span class="line">       &lt;port protocol="tcp" port="1723"/&gt;</span><br><span class="line">&lt;/service&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">启动或重启防火墙：</span><br><span class="line">systemctl start firewalld.service或firewall-cmd --reload</span><br><span class="line"></span><br><span class="line">添加服务：</span><br><span class="line">firewall-cmd --permanent --zone=public --add-service=pptpd</span><br><span class="line"></span><br><span class="line">允许防火墙伪装IP：</span><br><span class="line">firewall-cmd --add-masquerade</span><br><span class="line"></span><br><span class="line">开启47及1723端口：</span><br><span class="line">firewall-cmd --permanent --zone=public --add-port=47/tcp</span><br><span class="line">firewall-cmd --permanent --zone=public --add-port=1723/tcp</span><br><span class="line"></span><br><span class="line">允许gre协议：</span><br><span class="line">firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -p gre -j ACCEPT</span><br><span class="line">firewall-cmd --permanent --direct --add-rule ipv4 filter OUTPUT 0 -p gre -j ACCEPT</span><br><span class="line"></span><br><span class="line">设置规则允许数据包由eth0和ppp+接口中进出</span><br><span class="line">firewall-cmd --permanent --direct --add-rule ipv4 filter FORWARD 0 -i ppp+ -o eth0 -j ACCEPT</span><br><span class="line">firewall-cmd --permanent --direct --add-rule ipv4 filter FORWARD 0 -i eth0 -o ppp+ -j ACCEPT</span><br><span class="line"></span><br><span class="line">设置转发规则，从源地址发出的所有包都进行伪装，改变地址，由eth0发出：</span><br><span class="line">firewall-cmd --permanent --direct --passthrough ipv4 -t nat -I POSTROUTING -o eth0 -j MASQUERADE -s 192.168.0.0/24</span><br><span class="line"></span><br><span class="line">重启服务器：</span><br><span class="line">firewall-cmd --reload</span><br><span class="line">systemctl restart pptpd</span><br></pre></td></tr></table></figure>
+<h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><p>查看pptpd启动状态</p>
+<p><img src="http://ww1.sinaimg.cn/large/006tNc79gy1g441cfsgsij30l30a50tt.jpg" alt="2-6"></p>
+<p>原因：<code>/etc/pptpd.conf</code>中<code>remoteip 192.168.0.214,192.168.0.245</code>之间多了一个空格</p>
+<p><img src="http://ww1.sinaimg.cn/large/006tNc79gy1g441cw7qlcj30am03y749.jpg" alt="2-7"></p>
+<p>改为：</p>
+<p><img src="http://ww2.sinaimg.cn/large/006tNc79gy1g441dlgzezj309o044dfs.jpg" alt="2-8"></p>
+<p>然后，我用手机的vpn连上后成功上了google，但是网速很慢。</p>
+<h3 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h3><p>Q: MPPE disabled</p>
+<p>A: </p>
+<p>Q: Cannot determine ethernet address for proxy ARP</p>
+<p>A: </p>
+<blockquote>
+<p><a href="https://pagespeed.v2ex.com/t/232346" target="_blank" rel="noopener">pptpd 的问题， Cannot determine ethernet address for proxy ARP:</a></p>
+<p><a href="http://www.dannysite.com/blog/31/" target="_blank" rel="noopener">VPN 架设中一些问题的解决方法（pptpd）</a></p>
+<p><a href="https://www.jiangmiao.org/blog/1914.html" target="_blank" rel="noopener">Linux 通过 pptp 连接 VPN 网络</a></p>
+<p><a href="https://blog.csdn.net/hanzheng260561728/article/details/51235807" target="_blank" rel="noopener">Centos 6.5 下配置L2tp Vpn</a></p>
+</blockquote>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://www.cnblogs.com/CoveredWithDust/p/7967036.html" target="_blank" rel="noopener">CentOS7安装PPTP</a></p>
+<p><a href="https://blog.51cto.com/10802692/2177227" target="_blank" rel="noopener">Centos7 下部署PPTP</a></p>
+<p><a href="https://www.cnblogs.com/smallcoderhujin/p/4485026.html" target="_blank" rel="noopener">CentOS7中PPTP的配置</a>  </p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Description"><span class="toc-number">1.</span> <span class="toc-text">Description</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Environment-amp-Tools"><span class="toc-number">2.</span> <span class="toc-text">Environment &amp; Tools</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Guide"><span class="toc-number">3.</span> <span class="toc-text">Guide</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#检查是否支持PPTP"><span class="toc-number">3.1.</span> <span class="toc-text">检查是否支持PPTP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装PPP"><span class="toc-number">3.2.</span> <span class="toc-text">安装PPP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装-amp-配置PPTPD"><span class="toc-number">3.3.</span> <span class="toc-text">安装&amp;配置PPTPD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改防火墙设置："><span class="toc-number">3.4.</span> <span class="toc-text">修改防火墙设置：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#验证"><span class="toc-number">3.5.</span> <span class="toc-text">验证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Q-amp-A"><span class="toc-number">3.6.</span> <span class="toc-text">Q&amp;A</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">4.</span> <span class="toc-text">Reference</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/06/13/0013-do-pptp/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/06/13/0013-do-pptp/&text=【VPS】build a PPTP server in digital ocean centos7"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/06/13/0013-do-pptp/&title=【VPS】build a PPTP server in digital ocean centos7"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/06/13/0013-do-pptp/&is_video=false&description=【VPS】build a PPTP server in digital ocean centos7"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=【VPS】build a PPTP server in digital ocean centos7&body=Check out this article: http://yoursite.com/2019/06/13/0013-do-pptp/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/06/13/0013-do-pptp/&title=【VPS】build a PPTP server in digital ocean centos7"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/06/13/0013-do-pptp/&title=【VPS】build a PPTP server in digital ocean centos7"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/06/13/0013-do-pptp/&title=【VPS】build a PPTP server in digital ocean centos7"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/06/13/0013-do-pptp/&title=【VPS】build a PPTP server in digital ocean centos7"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/06/13/0013-do-pptp/&name=【VPS】build a PPTP server in digital ocean centos7&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 Tony Chen
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+    <!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
