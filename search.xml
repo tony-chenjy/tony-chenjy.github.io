@@ -4,6 +4,42 @@
   
     
     <entry>
+      <title>0013-do-pptp</title>
+      <link href="/2019/06/17/0013-do-pptp/"/>
+      <url>/2019/06/17/0013-do-pptp/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>【VPS】build a shadowsocks server in digital ocean centos7</title>
+      <link href="/2019/06/13/0012-do-shadowsocks/"/>
+      <url>/2019/06/13/0012-do-shadowsocks/</url>
+      
+        <content type="html"><![CDATA[<h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p>折腾了一整天，记录一下。</p><h2 id="Environment-amp-Tools"><a href="#Environment-amp-Tools" class="headerlink" title="Environment &amp; Tools"></a>Environment &amp; Tools</h2><p>digital ocean, centos7</p><h2 id="Guide"><a href="#Guide" class="headerlink" title="Guide"></a>Guide</h2><h3 id="centos7中部署ss服务器"><a href="#centos7中部署ss服务器" class="headerlink" title="centos7中部署ss服务器"></a>centos7中部署ss服务器</h3><p>使用yum安装python工具 &amp; shadowsocks：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum -y update</span><br><span class="line">yum install python-setuptools &amp;&amp; easy_install pip</span><br><span class="line">pip install shadowsocks</span><br></pre></td></tr></table></figure></p><p><img src="http://ww4.sinaimg.cn/large/006tNc79gy1g440pz09ifj30kz05mdfx.jpg" alt="1-1"></p><p><img src="http://ww4.sinaimg.cn/large/006tNc79gy1g440qd57z8j30l50mdtb0.jpg" alt="1-2"></p><p>配置shadowsocks：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/shadowsocks.json  // 新建Json文件</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"server"</span> : <span class="string">"0.0.0.0"</span>,</span><br><span class="line">    <span class="string">"server_port"</span> : 443,</span><br><span class="line">    <span class="string">"password"</span> : <span class="string">"*********"</span>,  // 连接shadowsocks的密码，客户端要跟这个一致</span><br><span class="line">    <span class="string">"timeout"</span> : 300,</span><br><span class="line">    <span class="string">"method"</span> : <span class="string">"aes-256-cfb"</span>,</span><br><span class="line">    <span class="string">"mode"</span> : <span class="string">"tcp_and_udp"</span>,</span><br><span class="line">    <span class="string">"fast_open"</span> : <span class="literal">false</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ssserver -c /etc/shadowsocks.json -d start //启动ss服务端</span><br><span class="line">netstat -ntlp // 检查是否成功启动并且正在监听端口</span><br></pre></td></tr></table></figure><p>补充shadowsocks操作：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ssserver -c /etc/shadowsocks.json -d start // 启动</span><br><span class="line">ssserver -c /etc/shadowsocks.json -d stop // 停止</span><br><span class="line">ssserver -c /etc/shadowsocks.json -d restart // 重启</span><br></pre></td></tr></table></figure><h3 id="windows中安装ss客户端"><a href="#windows中安装ss客户端" class="headerlink" title="windows中安装ss客户端"></a>windows中安装ss客户端</h3><p>下载：<a href="https://github.com/shadowsocks/shadowsocks-windows/releases/tag/2.3.1" target="_blank" rel="noopener">Shadowsocks-win-2.3.1.zip</a></p><p>启动 &amp; 配置：</p><ul><li>windows下直接解压zip文件并双击exe文件启动</li><li>按照shadowsocks.json中的设置，配置服务器IP、服务器端口、密码、加密方式，代理端口不变</li><li>右键点击shadowsocks图标，点击<code>启用系统代理</code></li></ul><p><img src="http://ww4.sinaimg.cn/large/006tNc79gy1g440rwwtpij30cx08haa5.jpg" alt="1-3"></p><h3 id="windows中登陆www-google-com测试翻墙效果"><a href="#windows中登陆www-google-com测试翻墙效果" class="headerlink" title="windows中登陆www.google.com测试翻墙效果"></a>windows中登陆<a href="http://www.google.com测试翻墙效果" target="_blank" rel="noopener">www.google.com测试翻墙效果</a></h3><p>如果登陆不成功，可以右键客户端图标 -&gt; 帮助 -&gt; 显示日志。（4.1.3.1版本中日志还能检测流量）</p><p>如果出现500，有可能centos7防火墙未开放端口：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">systemctl status firewalld.service // 显示一个服务的状态</span><br><span class="line">firewall-cmd --zone=public --list-ports // 查看所有打开的端口</span><br><span class="line">firewall-cmd --zone=public --add-port=443/tcp --permanent // 开放端口（--permanent永久生效，没有此参数重启后失效）</span><br><span class="line">firewall-cmd --zone=public --add-port=443/udp --permanent // 开放端口（--permanent永久生效，没有此参数重启后失效）</span><br><span class="line">firewall-cmd --reload // 重启防火墙</span><br></pre></td></tr></table></figure><h2 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h2><p>Q: digitalocean authentication token manipulation error</p><p>A: 第一次发来的随机密码要输入 2 次的，第一次是登录了，然后让你改密码，这时候还要先输入次那个随机密码</p><p>Q: Unit firewalld.service could not be found.</p><p>A: <code>yum install firewalld  //安装firewalld 防火墙</code>  </p><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://www.v2ex.com/amp/t/394408" target="_blank" rel="noopener">DigitalOcean 第一次修改 root 密码，输入新密码后提示 Authentication token manipulation error</a></p><p><a href="https://www.jianshu.com/p/4e9a091b0147" target="_blank" rel="noopener">centos7配置shadowsocks</a><br><a href="https://www.jianshu.com/p/77fd097dd805" target="_blank" rel="noopener">CentOS7 安装shadowsocks server</a><br><a href="https://www.crifan.com/linode_centos_7_install_and_config_shadowsocks/" target="_blank" rel="noopener">【已解决】Linode的CentOS 7中搭建shadowsocks</a>  </p><h6 id="firewalld"><a href="#firewalld" class="headerlink" title="firewalld:"></a>firewalld:</h6><p><a href="https://blog.csdn.net/qq_41139036/article/details/81126221" target="_blank" rel="noopener">关于linux-centos7,防火墙 Failed to start firewalld.service: Unit firewalld.service is masked</a><br><a href="https://www.cnblogs.com/moxiaoan/p/5683743.html" target="_blank" rel="noopener">CentOS7使用firewalld打开关闭防火墙与端口</a><br><a href="https://blog.csdn.net/sky__man/article/details/78178821" target="_blank" rel="noopener">systemctl命令的使用及服务状态的查看</a>  </p><h6 id="Shadowsocks客户端"><a href="#Shadowsocks客户端" class="headerlink" title="Shadowsocks客户端:"></a>Shadowsocks客户端:</h6><p><a href="https://www.southcity-oldboy.com/282.html" target="_blank" rel="noopener">各版本Shadowsocks客户端下载地址</a><br><a href="https://github.com/shadowsocks/shadowsocks-windows/releases" target="_blank" rel="noopener">shadowsocks/shadowsocks-windows</a><br><a href="https://sourceforge.net/projects/shadowsocksgui/" target="_blank" rel="noopener">Shadowsocks</a><br><a href="https://github.com/shadowsocks/ShadowsocksX-NG" target="_blank" rel="noopener">shadowsocks/ShadowsocksX-NG</a><br><a href="https://blog.csdn.net/weixin_41100576/article/details/81482786" target="_blank" rel="noopener">ShadowshocksR-安卓使用教程</a><br><a href="http://blog.51cto.com/jonauil/2086278" target="_blank" rel="noopener">CentOS7 shadowsocks 客户端安装</a>  </p><h2 id="Other-Reference"><a href="#Other-Reference" class="headerlink" title="Other Reference"></a>Other Reference</h2><p><a href="https://wiki.archlinux.org/index.php/Shadowsocks_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87" target="_blank" rel="noopener">Shadowsocks (简体中文)</a>#%E5%AE%89%E8%A3%85)</p><p><a href="https://www.banpie.info/shadowsocks-pac-gfw/" target="_blank" rel="noopener">如何翻墙：使用Shadowsock搭建一条自由的梯子</a></p><h6 id="ClamAV"><a href="#ClamAV" class="headerlink" title="ClamAV:"></a>ClamAV:</h6><p><a href="https://blog.csdn.net/qq_33468857/article/details/82920721" target="_blank" rel="noopener">clamav完整查杀linux病毒实战</a><br><a href="http://blog.51cto.com/11199460/2083697" target="_blank" rel="noopener">Centos7安装和使用ClamAV杀毒软件</a><br><a href="https://blog.csdn.net/wfs1994/article/details/80246529" target="_blank" rel="noopener">ClamAV查杀linux病毒实战</a>  </p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> centos7 </tag>
+            
+            <tag> digital ocean </tag>
+            
+            <tag> shadowsocks </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【Swagger2】integrate Swagger2 in Spring4 project</title>
       <link href="/2019/04/10/0011-swagger2/"/>
       <url>/2019/04/10/0011-swagger2/</url>
@@ -174,13 +210,13 @@
       
         <tags>
             
+            <tag> Elasticsearch </tag>
+            
             <tag> linode </tag>
             
             <tag> centos7 </tag>
             
             <tag> docker-compose </tag>
-            
-            <tag> Elasticsearch </tag>
             
         </tags>
       
